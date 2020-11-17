@@ -10,7 +10,7 @@ const item = {
   },
 
   get: function (callback) {
-    return db.query("select * from user_table", callback);
+    return db.query("select * from item_table", callback);
   },
 };
 

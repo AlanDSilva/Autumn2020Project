@@ -7,7 +7,7 @@ const Item = require("../models/item_model");
 router.post("/", async (req, res) => {
   const body = req.body;
 
-  // FOR USE LATER
+  // FOR USE LATER !!
   // const decodedToken = jwt.verify(req.token, process.env.SECRET);
   // if (!req.token || !decodedToken.id) {
   //   return res.status(401).json({ error: "token missing or invalid" });
@@ -25,6 +25,12 @@ router.post("/", async (req, res) => {
   const savedItem = await Item.add(item);
 
   res.json(savedItem.rows);
+});
+
+router.get("/", async (req, res) => {
+  const items = await Item.get();
+
+  res.json(items.rows);
 });
 
 module.exports = router;
