@@ -10,3 +10,22 @@ CREATE TABLE example_table (
 	CONSTRAINT password_must_be_at_least_6_characters CHECK (LENGTH(password) > 6),
 	CONSTRAINT password_confirmation_must_match_password CHECK (confirm = password)
 );
+
+CREATE TABLE user_table (
+	id VARCHAR(255) NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	passwordHash VARCHAR(255) NOT NULL,
+	CONSTRAINT email_already_exists UNIQUE(email)
+);
+
+CREATE TABLE item_table (
+	id VARCHAR(255) NOT NULL PRIMARY KEY,
+	user_id VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	photo_url VARCHAR(255), 
+	price FLOAT NOT NULL,
+	CONSTRAINT fk_user
+		FOREIGN KEY(user_id)
+		REFERENCES user_table(id)
+);
