@@ -1,6 +1,7 @@
 import React from 'react';
-// import Auth from './Auth';
+import { Redirect } from "react-router-dom";
 import {Link} from "react-router-dom";
+// style
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,14 +13,20 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+// notification style
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+import constants from '../constants.json';
+import axios from 'axios';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit">
+      {/* <Link color="inherit">
         Your Website
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -60,23 +67,39 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const classes = useStyles();
   
+  toast.configure();
+  function notify(value) {
+    value == 1 ? toast.success('Welcome back, customer :)') : toast.error("Wrong username or password :(")
+  }
+
   function login(event)
   {
     event.preventDefault();
-    // Auth.authenticate(event.target['username'].value, event.target['password'].value)
-    //   .then(result =>
-    //     {
-    //       props.loginSuccess(result);
-    //       props.history.push(props.redirectPathOnSuccess);
-    //     })
-    //   .catch(() => {
-    //     props.loginFail();
-    //   })
-    alert("updating")
+    const email = event.target['email'].value;
+    const password = event.target['password'].value;
+ 
+    axios
+      .post(constants.baseAddress+'/login', { email, password })
+      .then(res => {
+        if(res.data){
+            notify(1); // 1 mean success
+            localStorage.setItem('storageUsername', email);
+            props.history.push(props.redirectPathOnSuccess);
+            props.loginSuccess();
+        }
+        else{
+            console.log("Wrong");
+            notify(2); //2 mean wrong
+            localStorage.setItem('storageUsername',"");
+        }
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
   }
-//   if (props.isAuthenticated) {
-//     return(<React.Fragment><Redirect to='/' /></React.Fragment>)
-//   } else {
+  if (props.isAuthenticated) {
+    return(<React.Fragment><Redirect to='/' /></React.Fragment>)
+  } else {
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
@@ -98,8 +121,8 @@ export default function Login(props) {
                 required
                 fullWidth
                 id="email"
-                label="Username"
-                name="username"
+                label="Email"
+                name="email"
                 autoComplete="email"
                 autoFocus
               />
@@ -145,6 +168,5 @@ export default function Login(props) {
         </Grid>
       </Grid>
     );
-//   }
-  
+  }
 }

@@ -1,3 +1,2 @@
-npm install --save react-router-dom
-npm i @material-ui/icons @material-ui/core
+npm i @material-ui/icons @material-ui/core react-router-dom axios react-toastify
 

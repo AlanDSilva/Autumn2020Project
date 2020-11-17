@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { Redirect } from "react-router-dom";
+// style
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,13 +15,16 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import axios from 'axios';
+import constants from '../constants.json';
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      {/* <Link color="inherit">
         Your Website
-      </Link>{' '}
+      </Link>{' '} */}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -47,9 +51,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function Register(props) {
+
+  function register(event) {
+    event.preventDefault();
+    var firstname = event.target['firstname'].value;
+    var lastname = event.target['lastname'].value;
+    var email = event.target['email'].value;
+    var password = event.target['password'].value;
+    if(email.length < 6 && password.length < 6 ) {
+      alert("Username or password have to be more than 6 characters ")
+    } else {
+      axios.post(constants.baseAddress +'/register', {
+        firstname,
+        lastname,
+        email,
+        password
+    })
+    .then(function (response) {
+        console.log(response);
+        alert('created success');
+        props.history.push(props.redirectPathOnSuccess);
+    })
+    .catch(function (error) {
+        alert("Exist information")
+        console.log(error);
+    });
+    }
+  }
+
   const classes = useStyles();
 
+  if (props.isAuthenticated) {
+    return(<React.Fragment><Redirect to='/' /></React.Fragment>)
+  } else {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -60,12 +95,12 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={ register }>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="firstname"
                 variant="outlined"
                 required
                 fullWidth
@@ -81,7 +116,7 @@ export default function SignUp() {
                 fullWidth
                 id="lastName"
                 label="Last Name"
-                name="lastName"
+                name="lastname"
                 autoComplete="lname"
               />
             </Grid>
@@ -138,4 +173,5 @@ export default function SignUp() {
       </Box>
     </Container>
   );
+} 
 }
