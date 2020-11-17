@@ -6,37 +6,28 @@ import Cart from './style/cart.svg'
 export default class Navbar extends React.Component {  
   
     render() {
-      console.log(this.props.isAuthenticated)
         return (
             <div>
               {/* Navigation*/}
               <nav className="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
                 <div className="container">
-        <Link to="/" className="navbar-brand js-scroll-trigger"><b className="navbar-items">{this.props.isAuthenticated ? "cc" : 'hello'}Store Name</b></Link>
+        <Link to="/" className="navbar-brand js-scroll-trigger"><b className="navbar-items">Store Name</b></Link>
                   <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i className="fas fa-bars" />
                   </button>
                   <div className="collapse navbar-collapse" id="navbarResponsive">
                     <ul className="navbar-nav ml-auto">
-
                       <li className="nav-item">
-                        <Link to="/login" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Store</b></Link>
+                        <Link to="/services" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Service</b></Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/login" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Service</b></Link>
+                        <Link to="/help" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Help!</b></Link>
                       </li>
 
                       <li className="nav-item">
-                        <Link to="/login" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Help!</b></Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link to="/login" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">News</b></Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link to="/login" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Locations</b></Link>
+                        <Link to="/location" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Location</b></Link>
                       </li>
 
                       <li className="nav-item"><Link to="/login" className={this.props.isAuthenticated ? 'hidden' : 'nav-link js-scroll-trigger'}>

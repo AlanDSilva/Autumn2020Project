@@ -6,7 +6,10 @@ import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Register from './components/Register'
 import Main from './components/Main'
-    
+import Services from './components/Services'
+import Help from './components/Help'
+import Location from './components/Location'
+import Cart from './components/Cart'
 
 class App extends Component {
   constructor(props) {
@@ -35,11 +38,19 @@ class App extends Component {
   
 
   render() {
-    console.log(this.state.isAuthenticated)
+
       return ( 
         <Router>
           <Navbar isAuthenticated={this.state.isAuthenticated}  logOut = {this.logOut}/>
               <div>
+                  <Route path="/services" exact render={(routeProps) => <Services  {...routeProps}/>} 
+                                                                        />  
+                  <Route path="/help" exact render={(routeProps) => <Help {...routeProps}/>} 
+                                                                        />  
+                  <Route path="/cart" exact render={(routeProps) => <Cart {...routeProps}/>} 
+                                                                        />  
+                  <Route path="/location" exact render={(routeProps) => <Location {...routeProps}/>} 
+                                                                        />  
                   <Route path="/" exact render={(routeProps) => <Main isAuthenticated={this.state.isAuthenticated}
                                                                         {...routeProps}/>} 
                                                                         />  
