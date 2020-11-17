@@ -1,6 +1,31 @@
-CREATE TABLE public.item_table(
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255),
-  author VARCHAR(50),
-  isbn VARCHAR(15)
+CREATE TABLE example_table (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	confirm VARCHAR(255) NOT NULL,
+ 	CONSTRAINT name_must_be_at_least_4_characters CHECK (LENGTH(name) > 4),
+	CONSTRAINT name_already_taken UNIQUE(name),
+	CONSTRAINT email_already_taken UNIQUE(email),
+	CONSTRAINT password_must_be_at_least_6_characters CHECK (LENGTH(password) > 6),
+	CONSTRAINT password_confirmation_must_match_password CHECK (confirm = password)
+);
+
+CREATE TABLE user_table (
+	id VARCHAR(255) NOT NULL PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	passwordHash VARCHAR(255) NOT NULL,
+	CONSTRAINT email_already_exists UNIQUE(email)
+);
+
+CREATE TABLE item_table (
+	id VARCHAR(255) NOT NULL PRIMARY KEY,
+	user_id VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	photo_url VARCHAR(255), 
+	price FLOAT NOT NULL,
+	CONSTRAINT fk_user
+		FOREIGN KEY(user_id)
+		REFERENCES user_table(id)
 );
