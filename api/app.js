@@ -21,9 +21,11 @@ app.get("/", (req, res) => {
 // app.use("/login", loginRouter);
 
 app.use(middleware.tokenExtractor); // Extracts token before any route
-
+// register
 app.use("/api/users", userRouter);
+// login
 app.use("/api/login", loginRouter);
+// items
 app.use("/api/items", itemRouter);
 
 app.use(middleware.unknownEndpoint); // Handles requests made to undefined end points
