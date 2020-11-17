@@ -67,11 +67,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const classes = useStyles();
   
+  // noti
   toast.configure();
   function notify(value) {
     value == 1 ? toast.success('Welcome back, customer :)') : toast.error("Wrong username or password :(")
   }
-
+  // login
   function login(event)
   {
     event.preventDefault();
