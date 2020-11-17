@@ -35,6 +35,7 @@ function Copyright() {
   );
 }
 
+// style
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -60,32 +61,49 @@ export default function Register(props) {
   // noti
   toast.configure();
   function notify(value) {
-    value == 1 ? toast.success('Create success ^_^') : toast.error("Email and password must be more than 6 characters")
+    if (value == 1) toast.success('Create success ^_^') 
+    else if (value == 2) toast.error("Email is used by other person or Password must be more than 6 characters")
+    else if (value == 3) toast.warning("Invalid Email")
+    else toast.warning("Firstname, lastname is invalid")
   }
-
+  // register
   function register(event) {
     event.preventDefault();
+    // get value from the form
     var firstname = event.target['firstname'].value;
     var lastname = event.target['lastname'].value;
     var email = event.target['email'].value;
     var password = event.target['password'].value;
-    if(email.length < 6 && password.length < 6 ) {
-      notify(2);
-    } else {
-      axios.post(constants.baseAddress +'/register', {
-        firstname,
-        lastname,
-        email,
-        password
-    })
-    .then(function (response) {
-        notify(1);
-        props.history.push(props.redirectPathOnSuccess);
-    })
-    .catch(function (error) {
-        notify(2)
-        console.log(error);
-    });
+    // check if email is valid
+    if (typeof email !== "undefined") {
+      var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+      if (!pattern.test(email)) {
+        notify(3);
+      }
+      // then check that password is more than 6
+      if(password.length < 6 ) {
+        notify(2); //warning noti
+      } 
+      if (firstname.length && lastname.length == 0) {
+        notify(4); //warning name
+      }
+      else {
+        // everything works well
+        axios.post(constants.baseAddress +'/register', {
+          firstname,
+          lastname,
+          email,
+          password
+      })
+      .then(function (response) {
+          notify(1);
+          props.history.push(props.redirectPathOnSuccess);
+      })
+      .catch(function (error) {
+          notify(2)
+          console.log(error);
+      });
+      }
     }
   }
 
