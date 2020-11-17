@@ -30,7 +30,7 @@ export default class Navbar extends React.Component {
                         <Link to="/location" className="nav-link js-scroll-trigger nav-items"><b className="navbar-items">Location</b></Link>
                       </li>
 
-                      <li className="nav-item"><Link to="/login" className={this.props.isAuthenticated ? 'hidden' : 'nav-link js-scroll-trigger'}>
+                      <li><Link to="/login" className={this.props.isAuthenticated ? 'hidden' : 'nav-link js-scroll-trigger'}>
                         <b>Login</b></Link>
                       </li>
 

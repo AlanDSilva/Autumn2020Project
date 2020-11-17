@@ -15,6 +15,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+// notification style
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 import axios from 'axios';
 import constants from '../constants.json';
 
@@ -52,6 +56,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Register(props) {
+  
+  // noti
+  toast.configure();
+  function notify(value) {
+    value == 1 ? toast.success('Create success ^_^') : toast.error("Email and password must be more than 6 characters")
+  }
 
   function register(event) {
     event.preventDefault();
@@ -60,7 +70,7 @@ export default function Register(props) {
     var email = event.target['email'].value;
     var password = event.target['password'].value;
     if(email.length < 6 && password.length < 6 ) {
-      alert("Username or password have to be more than 6 characters ")
+      notify(2);
     } else {
       axios.post(constants.baseAddress +'/register', {
         firstname,
@@ -69,19 +79,18 @@ export default function Register(props) {
         password
     })
     .then(function (response) {
-        console.log(response);
-        alert('created success');
+        notify(1);
         props.history.push(props.redirectPathOnSuccess);
     })
     .catch(function (error) {
-        alert("Exist information")
+        notify(2)
         console.log(error);
     });
     }
   }
 
   const classes = useStyles();
-
+  // if someone try to go to register but still logged in, goes back to main page
   if (props.isAuthenticated) {
     return(<React.Fragment><Redirect to='/' /></React.Fragment>)
   } else {

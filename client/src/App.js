@@ -22,14 +22,7 @@ class App extends Component {
 
   onLogin = (result) => {
     this.setState({ isAuthenticated: true })
-    this.setState({userInfo: result})
-    console.log('hello')
-  }
-
-  onLoginFail = () => {
-    this.setState({ isAuthenticated: false });
-    console.log("Login failed");
-    alert("wrong email or password")
+    // this.setState({userInfo: result}) 
   }
 
   logOut = () => {
@@ -38,7 +31,7 @@ class App extends Component {
   
 
   render() {
-
+    console.log(this.state.userInfo)
       return ( 
         <Router>
           <Navbar isAuthenticated={this.state.isAuthenticated}  logOut = {this.logOut}/>
