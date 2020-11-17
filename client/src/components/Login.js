@@ -20,19 +20,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import constants from '../constants.json';
 import axios from 'axios';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      {/* <Link color="inherit">
-        Your Website
-      </Link>{' '} */}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -76,29 +63,28 @@ export default function Login(props) {
   function login(event)
   {
     event.preventDefault();
+    // get email and password from the forms
     const email = event.target['email'].value;
     const password = event.target['password'].value;
- 
+    // send to api
     axios
-      .post(constants.baseAddress+'/login', { email, password })
+      .post(constants.baseAddress+'/api/login', { email, password })
       .then(res => {
         if(res.data){
+            console.log(res)
             notify(1); // 1 mean success
-            localStorage.setItem('storageUsername', email);
-            props.history.push(props.redirectPathOnSuccess);
-            props.loginSuccess();
-        }
-        else{
-            console.log("Wrong");
-            notify(2); //2 mean wrong
-            localStorage.setItem('storageUsername',"");
+            localStorage.setItem('email', email);
+            localStorage.setItem('tokenUser', res.data.token) //store the email to the localstorage for futher use
+            props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
+            props.loginSuccess(); //set state to logged in 
         }
       })
       .catch(error => {
         console.log(error.response);
+        notify(2); // fail
       });
   }
-  if (props.isAuthenticated) {
+  if (props.isAuthenticated) { //if somebody tries to goes back to register
     return(<React.Fragment><Redirect to='/' /></React.Fragment>)
   } else {
     return (
@@ -107,63 +93,25 @@ export default function Login(props) {
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            <Avatar className={classes.avatar}></Avatar> 
+            <Typography component="h1" variant="h5">Sign in</Typography>
             
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-  
             {/* form */}
             <form className={classes.form} noValidate onSubmit={login}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
+              <TextField variant="outlined" margin="normal" fullWidth required label="Email"
+                                                                               name="email" />
+              <TextField variant="outlined" margin="normal" required fullWidth label="Password" type="password"  autoComplete="current-password"
+                                                                               name="password"/>  
+              <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me"  />
+              <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit} >
                 Sign In
               </Button>
               <Grid container>
-                <Grid item xs>
-                 
-                </Grid>
+                <Grid item xs> </Grid>
                 <Grid item>
-                  <Link to="/register" variant="body2">
-                   {"Don't have an account? Sign Up"}
-                  </Link>
+                  <Link to="/register" variant="body2"> {"Don't have an account? Sign Up"} </Link>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
             </form>
           </div>
         </Grid>

@@ -21,7 +21,7 @@ CREATE TABLE user_table (
 
 CREATE TABLE item_table (
 	id VARCHAR(255) NOT NULL PRIMARY KEY,
-	user_id VARCHAR(255) NOT NULL,
+	user_id VARCHAR(255),
 	name VARCHAR(255) NOT NULL,
 	photo_url VARCHAR(255), 
 	price FLOAT NOT NULL,
