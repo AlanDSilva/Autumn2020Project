@@ -21,7 +21,9 @@ Promise.all([
 	      user_id VARCHAR(255),
 	      name VARCHAR(255) NOT NULL,
 	      photo_url VARCHAR(255), 
-	      price FLOAT NOT NULL,
+        price FLOAT NOT NULL,
+        description VARCHAR(255),
+        category VARCHAR(255),
 	      CONSTRAINT fk_user
 		      FOREIGN KEY(user_id)
 		      REFERENCES user_table(id)

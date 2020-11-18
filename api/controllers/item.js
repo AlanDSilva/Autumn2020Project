@@ -20,6 +20,8 @@ router.post("/", async (req, res) => {
     name: body.name,
     photo_url: body.photo_url,
     price: body.price,
+    description : body.description,
+    category : body.category
   };
 
   const savedItem = await Item.add(item);
