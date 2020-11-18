@@ -1,9 +1,15 @@
 const Pool = require("pg").Pool;
 
+let database = "netdb";
+
+if (process.env.NODE_ENV === "test") {
+  database = "testdb";
+}
+
 const connection = new Pool({
   user: "postgres",
   host: "localhost",
-  database: "netdb",
+  database: database,
   password: "admin",
   port: 5432,
 });
