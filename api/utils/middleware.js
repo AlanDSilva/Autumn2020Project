@@ -5,8 +5,13 @@ const unknownEndpoint = (request, response) => {
 };
 
 const errorHandler = (error, request, response, next) => {
-  logger.error(error.message);
-  response.status(404).send({ error: error.message });
+  logger.error(error.code);
+  if (error.code === "23505") {
+    return response.status(400).send({ error: error.message });
+  } else if (error.code === "23502") {
+    return response.status(400).send({ error: error.message });
+  }
+
   next(error);
 };
 

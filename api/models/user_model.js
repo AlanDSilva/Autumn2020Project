@@ -16,6 +16,14 @@ const user = {
       callback
     );
   },
+
+  get: (callback) => {
+    return db.query("select * from user_table", callback);
+  },
+
+  deleteMany: (callback) => {
+    return db.query("delete from user_table", callback);
+  },
 };
 
 module.exports = user;
