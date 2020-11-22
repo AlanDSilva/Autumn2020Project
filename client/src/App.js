@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import React, { Component } from 'react';
 // components
 import Navbar from './components/Navbar'
-import Login from './components/Login'
+import Login from './components/Login2'
 import Register from './components/Register'
 import Main from './components/Main'
 import Services from './components/Services'
@@ -32,7 +32,6 @@ class App extends Component {
   
 
   render() {
-    console.log(this.state.userInfo)
       return ( 
         <Router>
           <Navbar isAuthenticated={this.state.isAuthenticated}  logOut = {this.logOut}/>
