@@ -21,6 +21,7 @@ export default function AddProduct(props) {
       })
       .then(function (response) {
             props.history.push(props.redirectPathOnSuccess);
+            console.log("success");
       })
       .catch(function (error) {
             console.log(error);
