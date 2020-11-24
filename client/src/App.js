@@ -10,6 +10,7 @@ import Services from './components/Services'
 import Help from './components/Help'
 import Location from './components/Location'
 import Cart from './components/Cart'
+import Detail from './components/Detail'
 import AddProduct from './components/AddProduct'
 
 class App extends Component {
@@ -61,7 +62,9 @@ class App extends Component {
                                                                         {...routeProps}/>} 
                                                                         />
                   <Route path="/addproduct" exact render={(routeProps) => <AddProduct {...routeProps}/>} 
-                                                                      />            
+                                                                      />   
+                  <Route path="/detail/:id" exact render={(routeProps) => <Detail {...routeProps}/>} 
+                                                                      />           
                                                                                                                       
               </div>  
         </Router>    
