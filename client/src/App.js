@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar'
 import Login from './components/Login2'
 import Register from './components/Register'
-import Main from './components/Main'
+import Products from './components/Products'
 import Services from './components/Services'
 import Help from './components/Help'
 import Location from './components/Location'
@@ -43,7 +43,7 @@ class App extends Component {
                                                                         />  
                   <Route path="/location" exact render={(routeProps) => <Location {...routeProps}/>} 
                                                                         />  
-                  <Route path="/" exact render={(routeProps) => <Main isAuthenticated={this.state.isAuthenticated}
+                  <Route path="/" exact render={(routeProps) => <Products isAuthenticated={this.state.isAuthenticated}
                                                                         {...routeProps}/>} 
                                                                         />  
                   <Route path="/login" exact render={(routeProps) => <Login
