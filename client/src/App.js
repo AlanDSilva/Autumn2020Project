@@ -11,7 +11,7 @@ import Help from './components/Help'
 import Location from './components/Location'
 import Cart from './components/Cart'
 import AddProduct from './components/AddProduct'
-import Items from './components/Items'
+
 class App extends Component {
   constructor(props) {
       super(props);
