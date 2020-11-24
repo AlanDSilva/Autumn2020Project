@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import React, { Component } from 'react';
 // components
 import Navbar from './components/Navbar'
-import Login from './components/Login2'
+import Login from './components/Login'
 import Register from './components/Register'
 import Products from './components/Products'
 import Services from './components/Services'
@@ -11,7 +11,7 @@ import Help from './components/Help'
 import Location from './components/Location'
 import Cart from './components/Cart'
 import AddProduct from './components/AddProduct'
-
+import Items from './components/Items'
 class App extends Component {
   constructor(props) {
       super(props);

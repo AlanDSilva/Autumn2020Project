@@ -34,6 +34,7 @@ export default function Login(props) {
                 Email: <input type="text" name="email"/><br/>
                 pass : <input type="password" name="password"/><br/>
                 <button type="submit" value="hello">Login</button>
+                <Link to="/register">Register Here</Link>
             </form>
       </div>
     );
