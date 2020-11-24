@@ -10,6 +10,7 @@ import Services from './components/Services'
 import Help from './components/Help'
 import Location from './components/Location'
 import Cart from './components/Cart'
+import AddProduct from './components/AddProduct'
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +59,10 @@ class App extends Component {
                                                                             isAuthenticated={this.state.isAuthenticated}
                                                                             redirectPathOnSuccess="/login"
                                                                         {...routeProps}/>} 
-                                                                        />                                                        
+                                                                        />
+                  <Route path="/addproduct" exact render={(routeProps) => <AddProduct {...routeProps}/>} 
+                                                                      />            
+                                                                                                                      
               </div>  
         </Router>    
       );

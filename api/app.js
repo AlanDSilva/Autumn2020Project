@@ -1,4 +1,5 @@
 const express = require("express");
+require("express-async-errors"); // Passes errors on, in async-await functions
 const app = express();
 const cors = require("cors");
 const userRouter = require("./controllers/user");

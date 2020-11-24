@@ -45,6 +45,10 @@ export default class Navbar extends React.Component {
                       </Link>
                       </div>
 
+                      <li><Link to="/AddProduct" className={this.props.isAuthenticated ? 'nav-link js-scroll-trigger' : 'hidden'}>
+                        <b>Add Product</b></Link>
+                      </li>
+
                     </ul>
                   </div>
                 </div>
