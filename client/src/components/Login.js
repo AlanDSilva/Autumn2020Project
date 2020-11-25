@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import constants from '../constants.json';
 import axios from 'axios';

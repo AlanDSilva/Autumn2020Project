@@ -1,29 +1,14 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import axios from 'axios';
-import constants from '../constants.json';
-import './style/items.css'
+
+import '../style/items.css'
 
 export default class Products extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          data: [],   
-        }
-    }
-
-    componentDidMount = () => {
-        axios.get(constants.baseAddress+'/api/items').then(result => {
-          this.setState({data: result.data})
-        }).catch(error => {
-        console.error(error);
-      })
-    }
 
     render() {
-        console.log(this.state.data)
+        console.log(this.props.items)
 
-        var products = this.state.data.map((item) => {
+        var products = this.props.items.map((item) => {
             return  <div className="card-deck" key={item.id}>
                     <div className="card">
                         <img className="card-img-top img" src={item.photo_url} alt="Card image cap" />

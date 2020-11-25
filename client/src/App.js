@@ -5,30 +5,40 @@ import React, { Component } from 'react';
 import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Register from './components/Register'
-import Products from './components/Products'
+import Products from './components/product/Products'
 import Services from './components/Services'
 import Help from './components/Help'
 import Location from './components/Location'
-import Cart from './components/Cart'
-import Detail from './components/Detail'
+import Cart from './components/product/Cart'
+import Detail from './components/product/Detail'
 import AddProduct from './components/AddProduct'
+
+import axios from 'axios';
+import constants from './constants.json';
 
 class App extends Component {
   constructor(props) {
       super(props);
       this.state = {
-        userInfo: null
-        ,isAuthenticated: false
+        isAuthenticated: false
+        ,items : []
       };
   }
 
-  onLogin = (result) => {
+  onLogin = () => {
     this.setState({ isAuthenticated: true })
-    // this.setState({userInfo: result}) 
   }
 
   logOut = () => {
     this.setState({isAuthenticated : false})
+  }
+
+  componentDidMount = () => {
+    axios.get(constants.baseAddress+'/api/items').then(result => {
+      this.setState({items: result.data})
+    }).catch(error => {
+    console.error(error);
+    })
   }
   
 
@@ -45,15 +55,13 @@ class App extends Component {
                                                                         />  
                   <Route path="/location" exact render={(routeProps) => <Location {...routeProps}/>} 
                                                                         />  
-                  <Route path="/" exact render={(routeProps) => <Products isAuthenticated={this.state.isAuthenticated}
+                  <Route path="/" exact render={(routeProps) => <Products items={this.state.items}
                                                                         {...routeProps}/>} 
                                                                         />  
                   <Route path="/login" exact render={(routeProps) => <Login
-                                                                            checkData = { this.checkData}
                                                                             isAuthenticated={this.state.isAuthenticated}
                                                                             loginSuccess = { this.onLogin }
                                                                             loginFail = { this.onLoginFail }
-                                                                            userInfo={ this.state.userInfo }
                                                                             redirectPathOnSuccess="/"
                                                                             {...routeProps} />} />
                   <Route path="/register" exact render={(routeProps) => <Register
@@ -63,7 +71,7 @@ class App extends Component {
                                                                         />
                   <Route path="/addproduct" exact render={(routeProps) => <AddProduct {...routeProps}/>} 
                                                                       />   
-                  <Route path="/detail/:id" exact render={(routeProps) => <Detail {...routeProps}/>} 
+                  <Route path="/detail/:id" exact render={(routeProps) => <Detail items={this.state.items} {...routeProps}/>} 
                                                                       />           
                                                                                                                       
               </div>  
