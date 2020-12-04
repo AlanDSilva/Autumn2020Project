@@ -31,8 +31,9 @@ Promise.all([
   .then(() => {
     console.log("database initialized");
 
-    server.listen(3001, () => {
-      logger.info(`Server running on port 3001`);
+    const PORT = process.env.PORT || 3001;
+    server.listen(PORT, () => {
+      logger.info(`Server running on port ${PORT}`);
     });
   })
   .catch((error) => console.log(error));
