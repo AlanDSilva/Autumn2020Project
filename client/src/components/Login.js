@@ -20,7 +20,7 @@ export default function Login(props) {
             localStorage.setItem('email', email);
             localStorage.setItem('tokenUser', res.data.token) //store the email to the localstorage for futher use
             props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
-            // props.loginSuccess(); //set state to logged in 
+            props.loginSuccess(); //set state to logged in 
         }
       })
       .catch(error => {

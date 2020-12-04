@@ -7,14 +7,14 @@ export default function AddProduct(props) {
       event.preventDefault();
       // get value from the form
       var name = event.target['name'].value;
-      var picture = event.target['picture'].value;
+      var photo_url = event.target['picture'].value;
       var price = event.target['price'].value;
       var description = event.target['description'].value;
       var category = event.target['category'].value;
   
       axios.post(constants.baseAddress +'/api/items', {
             name,
-            picture,
+            photo_url,
             price,
             description,
             category
