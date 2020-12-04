@@ -35,4 +35,25 @@ router.get("/", async (req, res) => {
   res.json(items.rows);
 });
 
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const foundItem = await Item.getOne(id);
+
+  if (foundItem.rows.length === 0) {
+    res.status(404).send({ error: "Requested non existing item" });
+  } else {
+    res.json(foundItem.rows);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const removedItem = await Item.deleteOne(id);
+  if (removedItem.rowCount === 0) {
+    res.status(404).send({ error: "Can't delete non existing item" });
+  } else {
+    res.status(204).send({ success: "item succesfully deleted" });
+  }
+});
+
 module.exports = router;

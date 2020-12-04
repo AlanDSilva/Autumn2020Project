@@ -18,12 +18,6 @@ router.post("/", async (req, res, next) => {
     passwordHash,
   };
 
-  // try {
-  //   const savedUser = await User.add(user);
-  //   res.json(savedUser.rows);
-  // } catch (e) {
-  //   next(e);
-  // }
   const savedUser = await User.add(user);
   res.json(savedUser.rows);
 });

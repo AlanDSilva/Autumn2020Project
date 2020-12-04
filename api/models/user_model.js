@@ -9,7 +9,7 @@ const user = {
     );
   },
 
-  findOne: (email, callback) => {
+  getOne: (email, callback) => {
     return db.query(
       "select * from user_table where email = $1",
       [email],

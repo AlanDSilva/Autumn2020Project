@@ -21,6 +21,14 @@ const item = {
     return db.query("select * from item_table", callback);
   },
 
+  getOne: (id, callback) => {
+    return db.query("select * from item_table where id = $1", [id], callback);
+  },
+
+  deleteOne: (id, callback) => {
+    return db.query("delete from item_table where id = $1", [id], callback);
+  },
+
   deleteMany: function (callback) {
     return db.query("delete from item_table", callback);
   },

@@ -84,7 +84,7 @@ describe("viewing a specific item", () => {
       .expect(200)
       .expect("Content-Type", /application\/json/);
 
-    expect(resultItem.body).toEqual(itemToView);
+    expect(resultItem.body[0]).toEqual(itemToView);
   });
 
   test("fails with status code 404 if item does not exist", async () => {
@@ -99,7 +99,7 @@ describe("deletion of an item", () => {
     const itemsAtStart = await helper.itemsInDb();
     const itemToDelete = itemsAtStart[0];
 
-    await api.delete(`/api/items${itemToDelete.id}`).expect(204);
+    await api.delete(`/api/items/${itemToDelete.id}`).expect(204);
 
     const itemsAtEnd = await helper.itemsInDb();
 
