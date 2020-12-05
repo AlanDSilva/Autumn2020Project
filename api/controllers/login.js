@@ -5,7 +5,7 @@ const User = require("../models/user_model");
 
 router.post("/", async (req, res) => {
   const body = req.body;
-  const rows = await User.findOne(body.email);
+  const rows = await User.getOne(body.email);
   const user = rows.rows[0];
 
   const passwordCorrect =
