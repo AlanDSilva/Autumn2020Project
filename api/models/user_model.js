@@ -3,16 +3,16 @@ const db = require("../database");
 const user = {
   add: function (user, callback) {
     return db.query(
-      "insert into user_table(id, firstname, lastname, email, passwordHash) values($1,$2,$3,$4,$5) RETURNING *",
-      [user.id, user.firstname, user.lastname, user.email, user.passwordHash],
+      "insert into user_table(id, username, photo_url, passwordHash) values($1,$2,$3,$4) RETURNING *",
+      [user.id, user.username, user.photo_url, user.passwordHash],
       callback
     );
   },
 
-  getOne: (email, callback) => {
+  getOne: (username, callback) => {
     return db.query(
-      "select * from user_table where email = $1",
-      [email],
+      "select * from user_table where username = $1",
+      [username],
       callback
     );
   },

@@ -33,21 +33,6 @@ const dUri = new DataURI();
 const dataUri = (req) =>
   dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 
-// const uploadFile = (request, response, next) => {
-//   const upload = multer().single("file");
-
-//   upload(request, response, (err) => {
-//     if (err instanceof multer.MulterError) {
-//       console.log("multerr", err);
-//     } else if (err) {
-//       console.log("err", err);
-//     }
-//     // Everything went fine.
-//     console.log("everything went fine");
-//     next();
-//   });
-// };
-
 module.exports = {
   unknownEndpoint,
   errorHandler,

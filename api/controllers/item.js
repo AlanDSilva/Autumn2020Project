@@ -7,8 +7,24 @@ const Item = require("../models/item_model");
 const cloudinary = require("cloudinary");
 const middleware = require("../utils/middleware");
 
-router.post("/", async (req, res) => {
+// router.post("/image", middleware.multerUpload, async (req, res) => {
+//   console.log("made it here");
+//   console.log("req.body", req.body);
+//   console.log("req.file", req.file);
+
+//   if (req.file !== undefined) {
+//     const file = await middleware.dataUri(req).content;
+//     const result = await cloudinary.uploader.upload(file);
+//     res.json({ result: result.url, name: req.body.name });
+//   }
+
+//   res.json({ result: "", name: req.body.name });
+// });
+
+router.post("/", middleware.multerUpload, async (req, res) => {
   const body = req.body;
+  const id = await uuidv4();
+  let photo_url = "No photo url";
 
   // FOR USE LATER !!
   // const decodedToken = jwt.verify(req.token, process.env.SECRET);
@@ -16,12 +32,17 @@ router.post("/", async (req, res) => {
   //   return res.status(401).json({ error: "token missing or invalid" });
   // }
 
-  const id = await uuidv4();
+  if (req.file !== undefined) {
+    const file = await middleware.dataUri(req).content;
+    const result = await cloudinary.uploader.upload(file);
+    photo_url = result.url;
+  }
+
   const item = {
     // user_id: decodedToken.id,
     id,
     name: body.name,
-    photo_url: body.photo_url,
+    photo_url: photo_url,
     price: body.price,
     description: body.description,
     category: body.category,
@@ -30,20 +51,6 @@ router.post("/", async (req, res) => {
   const savedItem = await Item.add(item);
 
   res.json(savedItem.rows);
-});
-
-router.post("/image", middleware.multerUpload, async (req, res) => {
-  console.log("made it here");
-  console.log("req.body", req.body);
-  console.log("req.file", req.file);
-
-  if (req.file !== undefined) {
-    const file = await middleware.dataUri(req).content;
-    const result = await cloudinary.uploader.upload(file);
-    res.json({ result: result.url, name: req.body.name });
-  }
-
-  res.json({ result: "", name: req.body.name });
 });
 
 router.get("/", async (req, res) => {

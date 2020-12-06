@@ -9,11 +9,10 @@ const server = http.createServer(app);
 Promise.all([
   db.query(`CREATE TABLE IF NOT EXISTS user_table(
         id VARCHAR(255) NOT NULL PRIMARY KEY,
-        firstname VARCHAR(255) NOT NULL,
-        lastname VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL,
+        username VARCHAR(255) NOT NULL,
+        photo_url VARCHAR(255) NOT NULL,
         passwordHash VARCHAR(255) NOT NULL,
-        CONSTRAINT email_already_exists UNIQUE(email)
+        CONSTRAINT username_already_exists UNIQUE(username)
       )`),
   db.query(`CREATE TABLE IF NOT EXISTS item_table (
 	      id VARCHAR(255) NOT NULL PRIMARY KEY,

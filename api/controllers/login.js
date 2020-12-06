@@ -5,7 +5,7 @@ const User = require("../models/user_model");
 
 router.post("/", async (req, res) => {
   const body = req.body;
-  const rows = await User.getOne(body.email);
+  const rows = await User.getOne(body.username);
   const user = rows.rows[0];
 
   const passwordCorrect =
@@ -18,13 +18,13 @@ router.post("/", async (req, res) => {
   }
 
   const userForToken = {
-    email: user.email,
+    username: user.username,
     id: user.id,
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET);
 
-  res.status(200).send({ token, email: user.email, name: user.name });
+  res.status(200).send({ token, username: user.username });
 });
 
 module.exports = router;
