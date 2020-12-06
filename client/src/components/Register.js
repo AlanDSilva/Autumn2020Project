@@ -1,39 +1,74 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
-import axios from 'axios';
-import constants from '../constants.json';
+import axios from "axios";
+import constants from "../constants.json";
 
 export default function Register(props) {
-  function register(event) {
-    event.preventDefault();
-    // get value from the form
-    var firstname = event.target['firstname'].value;
-    var lastname = event.target['lastname'].value;
-    var email = event.target['email'].value;
-    var password = event.target['password'].value;
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
-    axios.post(constants.baseAddress +'/api/users', {
-          firstname,
-          lastname,
-          email,
-          password
-    })
-    .then(function (response) {
-          props.history.push(props.redirectPathOnSuccess);
-    })
-    .catch(function (error) {
-          console.log(error);
-    });
-    } 
-    return (
-        <div> <br/><br/><br/><br/>
-            <form onSubmit={ register }>
-                Firstname: <input type="text" name="firstname"/><br />
-                Lastname: <input type="text" name="lastname"/><br/>
-                Email: <input type="text" name="email"/><br/>
-                pass : <input type="password" name="password"/><br/>
-                <button type="submit" value="hello">Register</button>
-            </form>
-        </div>
-      );
+  const register = (event) => {
+    event.preventDefault();
+
+    // setup form data and configuration
+    let formData = new FormData();
+    formData.append("username", username);
+    formData.append("file", selectedFile);
+    formData.append("password", password);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    axios
+      .post(constants.baseAddress + "/api/users", formData, config)
+      .then(function (response) {
+        console.log(response.data);
+        props.history.push(props.redirectPathOnSuccess);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  return (
+    <div>
+      {" "}
+      <br />
+      <br />
+      <br />
+      <br />
+      <h3>Register form</h3>
+      <form onSubmit={register} encType="multipart/form-data">
+        Username:
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />{" "}
+        <br />
+        Photo:
+        <input
+          type="file"
+          //value={selectedFile}
+          onChange={(e) => {
+            setSelectedFile(e.target.files[0]);
+          }}
+        />{" "}
+        <br />
+        Password:
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />{" "}
+        <br />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  );
 }

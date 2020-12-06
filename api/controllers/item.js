@@ -26,11 +26,10 @@ router.post("/", middleware.multerUpload, async (req, res) => {
   const id = await uuidv4();
   let photo_url = "No photo url";
 
-  // FOR USE LATER !!
-  // const decodedToken = jwt.verify(req.token, process.env.SECRET);
-  // if (!req.token || !decodedToken.id) {
-  //   return res.status(401).json({ error: "token missing or invalid" });
-  // }
+  const decodedToken = jwt.verify(body.token, process.env.SECRET);
+  if (!body.token || !decodedToken.id) {
+    return res.status(401).json({ error: "token missing or invalid" });
+  }
 
   if (req.file !== undefined) {
     const file = await middleware.dataUri(req).content;
@@ -39,8 +38,8 @@ router.post("/", middleware.multerUpload, async (req, res) => {
   }
 
   const item = {
-    // user_id: decodedToken.id,
     id,
+    user_id: decodedToken.id,
     name: body.name,
     photo_url: photo_url,
     price: body.price,

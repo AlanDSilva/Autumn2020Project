@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const User = require("../models/user_model");
@@ -28,7 +29,23 @@ router.post("/", middleware.multerUpload, async (req, res, next) => {
   };
 
   const savedUser = await User.add(user);
-  res.json(savedUser.rows);
+  // res.json(savedUser.rows);
+
+  const userForToken = {
+    username: savedUser.rows[0].username,
+    id: savedUser.rows[0].id,
+    photo_url: savedUser.rows[0].photo_url,
+  };
+
+  const token = jwt.sign(userForToken, process.env.SECRET);
+
+  res
+    .status(200)
+    .send({
+      token,
+      username: savedUser.rows[0].username,
+      photo_url: savedUser.rows[0].photo_url,
+    });
 });
 
 router.get("/", async (req, res) => {
