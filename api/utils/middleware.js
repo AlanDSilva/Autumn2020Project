@@ -1,4 +1,7 @@
 const logger = require("./logger");
+const multer = require("multer");
+const DataURI = require("datauri/parser");
+const path = require("path");
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown end point" });
@@ -23,4 +26,33 @@ const tokenExtractor = (request, response, next) => {
   next();
 };
 
-module.exports = { unknownEndpoint, errorHandler, tokenExtractor };
+const storage = multer.memoryStorage();
+const multerUpload = multer({ storage }).single("file");
+
+const dUri = new DataURI();
+const dataUri = (req) =>
+  dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
+
+// const uploadFile = (request, response, next) => {
+//   const upload = multer().single("file");
+
+//   upload(request, response, (err) => {
+//     if (err instanceof multer.MulterError) {
+//       console.log("multerr", err);
+//     } else if (err) {
+//       console.log("err", err);
+//     }
+//     // Everything went fine.
+//     console.log("everything went fine");
+//     next();
+//   });
+// };
+
+module.exports = {
+  unknownEndpoint,
+  errorHandler,
+  tokenExtractor,
+  multerUpload,
+  dataUri,
+  // uploadFile,
+};
