@@ -91,18 +91,39 @@ export default class Navbar extends React.Component {
                 </div>
 
                 <li>
-                  <Link
-                    to="/AddProduct"
-                    // className={
-                    //   this.props.isAuthenticated
-                    //     ? "nav-link js-scroll-trigger"
-                    //     : "hidden"
-                    // }
-                  >
-                    <b>Add Product</b>
-                  </Link>
                   {localStorage.getItem("username") ? (
-                    <p>Logged in as {localStorage.getItem("username")}</p>
+                    <>
+                      <Link
+                        to="/AddProduct"
+                        // className={
+                        //   this.props.isAuthenticated
+                        //     ? "nav-link js-scroll-trigger"
+                        //     : "hidden"
+                        // }
+                      >
+                        <b>Add Product</b>
+                      </Link>
+                      <p>
+                        Logged in as {localStorage.getItem("username")}
+                        <img
+                          style={{
+                            height: "50px",
+                            width: "50px",
+                            borderRadius: "50%",
+                            border: "4px solid brown",
+                          }}
+                          alt="profile_photo"
+                          src={localStorage.getItem("photo_url")}
+                        ></img>
+                        <button
+                          onClick={() => {
+                            localStorage.clear();
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </p>
+                    </>
                   ) : (
                     <p>Not logged in</p>
                   )}

@@ -23,9 +23,13 @@ export default function Register(props) {
     };
     axios
       .post(constants.baseAddress + "/api/users", formData, config)
-      .then(function (response) {
-        console.log(response.data);
-        props.history.push(props.redirectPathOnSuccess);
+      .then(function (res) {
+        console.log(res.data);
+        localStorage.setItem("username", res.data.username);
+        localStorage.setItem("tokenUser", res.data.token);
+        localStorage.setItem("photo_url", res.data.photo_url); //store the username to the localstorage for futher use
+        props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
+        // props.loginSuccess(); //set state to logged in
       })
       .catch(function (error) {
         console.log(error);
