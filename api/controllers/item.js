@@ -7,20 +7,6 @@ const Item = require("../models/item_model");
 const cloudinary = require("cloudinary");
 const middleware = require("../utils/middleware");
 
-// router.post("/image", middleware.multerUpload, async (req, res) => {
-//   console.log("made it here");
-//   console.log("req.body", req.body);
-//   console.log("req.file", req.file);
-
-//   if (req.file !== undefined) {
-//     const file = await middleware.dataUri(req).content;
-//     const result = await cloudinary.uploader.upload(file);
-//     res.json({ result: result.url, name: req.body.name });
-//   }
-
-//   res.json({ result: "", name: req.body.name });
-// });
-
 router.post("/", middleware.multerUpload, async (req, res) => {
   const body = req.body;
   const id = await uuidv4();
