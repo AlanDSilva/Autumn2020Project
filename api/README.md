@@ -1,6 +1,7 @@
-<pre>
+
 ### POST /api/users
-CREATES USER. 
+<pre>
+CREATES USER 
 config:  
 {  
     headers: {    
@@ -20,7 +21,9 @@ json response:
     photo_url: String
 }
 
+</pre>
 ### POST /api/login
+<pre>
 LOGS USER In
 request body:
 {
@@ -34,7 +37,9 @@ json respnse:
     photo_url: String
 }
 
+</pre>
 ### POST /api/items
+<pre>
 ADD ITEM
 config:
 {
@@ -64,7 +69,9 @@ json respnse:
     }
 ]
 
+</pre>
 ### GET /api/items
+<pre>
 GETS LIST OF ALL ITEMS
 json respnse:
 [
@@ -79,7 +86,9 @@ json respnse:
     }, ...
 ]
 
+</pre>
 ### GET /api/items/:id
+<pre>
 GETS ONE ITEM BY ITS ID
 request params: 
 {
@@ -98,7 +107,9 @@ json respnse:
     }
 ]
 
+</pre>
 ### DELETE /api/items/:id
+<pre>
 DELETES ONE ITEM BY ITS ID
 request params: 
 {
