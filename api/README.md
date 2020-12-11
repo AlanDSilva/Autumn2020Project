@@ -1,10 +1,10 @@
 ### POST /api/users
-CREATES USER
-config:
-{
-    headers: {
-        "content-type": "multipart/form-data",
-    }
+CREATES USER. 
+config:  
+{  
+    headers: {    
+        "content-type": "multipart/form-data",  
+    }  
 }
 form data:
 {
