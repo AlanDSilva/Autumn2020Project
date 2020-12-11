@@ -5,42 +5,42 @@ config:
     headers: {    
         "content-type": "multipart/form-data",  
     }  
-}
-form data:
-{
-    username: String
-    file: File
-    password: String
-}
-json response:
-{
-    token: String
-    username: String
-    photo_url: String
-}
+}<br/>
+form data:<br/>
+{<br/>
+    username: String<br/>
+    file: File<br/>
+    password: String<br/>
+}<br/>
+json response:<br/>
+{<br/>
+    token: String<br/>
+    username: String<br/>
+    photo_url: String<br/>
+}<br/>
 
 ### POST /api/login
-LOGS USER In
-request body:
-{
-    username: String
-    password: String
-}
-json respnse:
-{
-    token: String
-    username: String
-    photo_url: String
-}
+LOGS USER In<br/>
+request body:<br/>
+{<br/>
+    username: String<br/>
+    password: String<br/>
+}<br/>
+json respnse:<br/>
+{<br/>
+    token: String<br/>
+    username: String<br/>
+    photo_url: String<br/>
+}<br/>
 
 ### POST /api/items
-ADD ITEM
-config:
-{
-    headers: {
-        "content-type": "multipart/form-data",
-    }
-}
+ADD ITEM<br/>
+config:<br/>
+{<br/>
+    headers: {<br/>
+        "content-type": "multipart/form-data",<br/>
+    }<br/>
+}<br/>
 form data:
 {
     token: String,
