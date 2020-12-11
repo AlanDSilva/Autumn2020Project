@@ -1,3 +1,4 @@
+<pre>
 ### POST /api/users
 CREATES USER. 
 config:  
@@ -107,6 +108,6 @@ json respnse:
 {
     success: "item succesfully deleted" 
 }
-
+</pre>
 
 
