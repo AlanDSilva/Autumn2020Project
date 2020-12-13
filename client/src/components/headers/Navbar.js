@@ -5,6 +5,7 @@ import Cart from "../style/cart.svg";
 
 export default class Navbar extends React.Component {
   render() {
+    console.log(localStorage)
     return (
       <div>
         {/* Navigation*/}

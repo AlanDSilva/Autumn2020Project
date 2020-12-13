@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-import constants from "../../constants.json";
+import APIAddItems from '../../api/APIAddItems'
 
 export default function AddProduct(props) {
   const [name, setName] = useState("");
@@ -25,17 +24,12 @@ export default function AddProduct(props) {
         "content-type": "multipart/form-data",
       },
     };
-
-    axios
-      .post(constants.baseAddress + "/api/items", formData, config)
-      .then(function (response) {
-        console.log(response.data);
-        props.history.push(props.redirectPathOnSuccess);
-        console.log("success");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    APIAddItems(formData, config) 
+    .then( (results) => { 
+      console.log(results)
+      props.history.push(props.redirectPathOnSuccess);
+    })
+    .catch(error => console.log(error))
   }
   return (
     <div>

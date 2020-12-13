@@ -15,8 +15,7 @@ import Container from '@material-ui/core/Container';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import axios from 'axios';
-import constants from '../../../constants.json';
+import APIRegister from '../../../api/APIRegister'
 
 // style
 const useStyles = makeStyles((theme) => ({
@@ -72,9 +71,7 @@ export default function Register(props) {
     // then check that password is more than 6
     else if(password.length < 6 )  notify(2); //warning noti
     else {
-        // everything works well
-        axios
-          .post(constants.baseAddress + "/api/users", formData, config)
+          APIRegister(formData, config) 
           .then(function (res) {
             console.log(res.data);
             localStorage.setItem("username", res.data.username);
@@ -89,7 +86,6 @@ export default function Register(props) {
           });
       }
     }
-  
 
   const classes = useStyles();
   // if someone try to go to register but still logged in, goes back to main page

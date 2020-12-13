@@ -15,10 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 // notification style
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
-import constants from '../../../constants.json';
-import axios from 'axios';
-
+import APILogin from '../../../api/APILogin'
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
@@ -65,9 +62,9 @@ export default function Login(props) {
   function login(event)
   {
     event.preventDefault();
+    console.log(username, password)
     // send to api
-    axios
-      .post(constants.baseAddress+'/api/login', { username, password })
+    APILogin(username, password)
       .then(res => {
         if(res.data){
             notify(1); // 1 mean success
