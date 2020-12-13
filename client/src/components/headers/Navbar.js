@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./style/navbar.css";
-import Cart from "./style/cart.svg";
+import "../style/navbar.css";
+import Cart from "../style/cart.svg";
 
 export default class Navbar extends React.Component {
   render() {

@@ -16,7 +16,7 @@ import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import axios from 'axios';
-import constants from '../constants.json';
+import constants from '../../../constants.json';
 
 // style
 const useStyles = makeStyles((theme) => ({

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import constants from "../constants.json";
+import constants from "../../constants.json";
 
 export default function AddProduct(props) {
   const [name, setName] = useState("");

@@ -16,7 +16,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import constants from '../constants.json';
+import constants from '../../../constants.json';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
