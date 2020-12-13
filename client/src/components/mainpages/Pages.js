@@ -16,19 +16,9 @@ class Pages extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: false,
-      items: [],
+      items: []
     };
   }
-
-  onLogin = () => {
-    this.setState({ isAuthenticated: true });
-  };
-
-  logOut = () => {
-    this.setState({ isAuthenticated: false });
-  };
-
   componentDidMount = () => {
     APIGetItems()
     .then( (result) => {this.setState({ items: result.data });})
@@ -45,14 +35,13 @@ class Pages extends Component {
           <Route  path="/location"   exact render={(routeProps) => <Location {...routeProps} />} />
           <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} {...routeProps} /> } />
           <Route  path="/login"      exact render={(routeProps) => (  <Login
-                                                                 isAuthenticated={this.state.isAuthenticated}
-                                                                  loginSuccess={this.onLogin}
-                                                                  loginFail={this.onLoginFail}
+                                                                  logIn={this.props.status}
+                                                                  loginSuccess={this.props.onLogin}
                                                                   redirectPathOnSuccess="/"
                                                                   {...routeProps}/>)} />
           <Route  path="/register"   exact render={(routeProps) => ( <Register
-                                                                  isAuthenticated={this.state.isAuthenticated}
-                                                                  redirectPathOnSuccess="/"  
+                                                                  redirectPathOnSuccess="/"
+                                                                  logIn={this.props.status} 
                                                                   {...routeProps} /> )} />
           <Route  path="/addproduct"  exact render={(routeProps) => <AddProduct {...routeProps} />}  />
           <Route  path="/detail/:id"  exact render={(routeProps) => ( <Detail items={this.state.items} {...routeProps} />  )} />

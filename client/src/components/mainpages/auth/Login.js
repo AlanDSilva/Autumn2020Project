@@ -50,19 +50,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Login(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  
   const classes = useStyles();
   
   // noti
   toast.configure();
   function notify(value) {
-    value == 1 ? toast.success('Welcome back, customer :)') : toast.error("Wrong username or password :(")
+    value == 1 ? toast.success('Welcome back, ' +username) : toast.error("Wrong username or password :(")
   }
   // login
   function login(event)
   {
     event.preventDefault();
-    console.log(username, password)
     // send to api
     APILogin(username, password)
       .then(res => {
@@ -80,7 +78,7 @@ export default function Login(props) {
         notify(2); // fail
       });
   }
-  if (props.isAuthenticated) { //if somebody tries to goes back to register
+  if (props.logIn) { //if somebody tries to goes back to register
     return(<React.Fragment><Redirect to='/' /></React.Fragment>)
   } else {
     return (

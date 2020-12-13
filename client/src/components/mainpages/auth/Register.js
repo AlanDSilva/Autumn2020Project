@@ -89,7 +89,7 @@ export default function Register(props) {
 
   const classes = useStyles();
   // if someone try to go to register but still logged in, goes back to main page
-  if (props.isAuthenticated) {
+  if (props.logIn) {
     return(<React.Fragment><Redirect to='/' /></React.Fragment>)
   } else {
   return (
