@@ -4,9 +4,23 @@ import {Link} from "react-router-dom";
 import '../style/items.css'
 
 export default class Products extends React.Component {
+    constructor(props) {
+        super(props);
+       this.AddtoCart = this.AddtoCart.bind(this);
+    }
 
+    
+    AddtoCart(props) {
+        console.log("added to cart: " + props);
+        this.props.onQtyChange(this.props.qty + 1);
+        this.props.onItemChange(props);                  
+         }
+     
     render() {
-        console.log(this.props.items)
+        console.log(this.props.items);
+        console.log(this.props.qty);
+            
+        
 
         var products = this.props.items.map((item) => {
             return  <div className="card-deck" key={item.id}>
@@ -21,7 +35,7 @@ export default class Products extends React.Component {
                                <Link className="btn btn-info btn" to={`detail/${item.id}`}>View</Link> 
                             </div>
                             <div className="btn">
-                                <Link className="btn btn-primary btn" to="#!">Add to cart</Link> 
+                                <button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
                             </div>
                         </div>
                     </div>&nbsp;

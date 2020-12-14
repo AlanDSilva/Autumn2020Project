@@ -1,11 +1,20 @@
 import React from 'react'
 
-function Cart() {
+export default class Cart extends React.Component {
+   constructor(props) {
+       super(props);
+       this.state = {
+            hammer: "time"        
+        };
+    }
+
+    render() {
+        console.log(this.props.qty);
     return (
         <div>
-            <br/><br/>Here is cart
+            <br/><br/><br/>In your cart you have {this.props.qty} items.
         </div>
-    )
+        );
+}
 }
 
-export default Cart

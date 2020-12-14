@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       logIn : false
-    }
+    };
   }
 
   onLogin = () => {this.setState({ logIn: true })}
