@@ -10,6 +10,9 @@ export default class Cart extends React.Component {
        this.state = {
        items: []
         };
+        this.Purchase = this.Purchase.bind(this);
+        this.Delete = this.Delete.bind(this);
+        
     }
 
     componentDidMount = () => {
@@ -18,6 +21,16 @@ export default class Cart extends React.Component {
         .catch( error => console.log(error))
       };
 
+
+      Purchase () {
+            
+    }
+
+
+    Delete() {
+        this.props.onQtyChange(0);
+        this.props.emptyCart();  
+    }
     
     render() {
         console.log(this.props.qty)
@@ -32,16 +45,17 @@ export default class Cart extends React.Component {
 
         var prettycart = [];
         
-        if(cartlist.length>0) {
+        if(this.props.qty>0) {
             prettycart = cartlist.map((item) => {
             return  <li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>
            });  
         }
            else {
                console.log("you thought");
-               return null;
+               prettycart = null;
            }
         
+       
 
         console.log(prettycart);
 
@@ -53,6 +67,13 @@ export default class Cart extends React.Component {
             <br/><br/><ul>
                 {prettycart}
             </ul>
+            <br/><br/>
+            <div className="btn">
+                <button className="btn btn-info btn" onClick={this.Purchase}>Purchase all</button>
+            </div>
+            <div className="btn">
+                <button className="btn btn-info btn" onClick={this.Delete}>Empty cart</button>
+            </div>
         </div>
         );
         }

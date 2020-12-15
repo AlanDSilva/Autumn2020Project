@@ -19,6 +19,7 @@ class Pages extends Component {
     super(props);
     this.handleQty = this.handleQty.bind(this);
     this.handleItems = this.handleItems.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
     this.state = {
       items: [],
       cartQty: 0,
@@ -37,6 +38,12 @@ class Pages extends Component {
 
   }
 
+  emptyCart() {
+    this.setState(prevState => ({
+      cartItems: []      
+    }));
+  }
+
   componentDidMount = () => {
     APIGetItems()
     .then( (result) => {this.setState({ items: result.data });})
@@ -49,7 +56,12 @@ class Pages extends Component {
         <Switch>
           <Route  path="/services"   exact render={(routeProps) => <Services {...routeProps} />}/>
           <Route  path="/help"       exact render={(routeProps) => <Help {...routeProps} />}/>
-          <Route  path="/cart"       exact render={(routeProps) => <Cart cart={this.state.cartItems} qty={this.state.cartQty} {...routeProps} />} />
+          <Route  path="/cart"       exact render={(routeProps) => <Cart cart={this.state.cartItems}
+                                                                  qty={this.state.cartQty}
+                                                                  onQtyChange={this.handleQty}
+                                                                  onItemChange={this.handleItems}
+                                                                  emptyCart={this.emptyCart}
+                                                                  {...routeProps} />} />
           <Route  path="/location"   exact render={(routeProps) => <Location {...routeProps} />} />
           <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items}
                                                                   cart={this.state.cartItems}

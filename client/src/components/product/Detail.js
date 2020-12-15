@@ -49,7 +49,8 @@ export default class Detail extends React.Component {
                         <span>$ {item.price}</span>
                         <p>{item.category}</p>
                         <p>{item.description}</p>
-                        <button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
+                        {//<button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
+                        }
                     </div>
                 </div>
 
