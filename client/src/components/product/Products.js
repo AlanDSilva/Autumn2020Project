@@ -7,34 +7,35 @@ export default class Products extends React.Component {
 
     render() {
         console.log(this.props.items)
-
-        var products = this.props.items.map((item) => {
-            return  <div className="card-deck" key={item.id}>
-                    <div className="card">
-                        <img className="card-img-top img" src={item.photo_url} alt="Card image cap" />
-                        <div className="card-body">
-                            <h5 className="card-title">{item.name}</h5>
-                            <p className="card-text">Category :{item.category}</p>
-                            <p className="card-text">{item.description}</p>
-                            <p className="card-text"><small className="text-muted">Price: {item.price}</small></p>
-                            <div className="btn">
-                               <Link className="btn btn-info btn" to={`detail/${item.id}`}>View</Link> 
+        if(this.props.items !== undefined ) {
+            var products = this.props.items.map((item) => {
+                return  <div className="card-deck" key={item.id}>
+                        <div className="card">
+                            <img className="card-img-top img" src={item.photo_url} alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">{item.name}</h5>
+                                <p className="card-text">Category :{item.category}</p>
+                                <p className="card-text">{item.description}</p>
+                                <p className="card-text"><small className="text-muted">Price: {item.price}</small></p>
+                                <div className="btn">
+                                   <Link className="btn btn-info btn" to={`detail/${item.id}`}>View</Link> 
+                                </div>
+                                <div className="btn">
+                                    <Link className="btn btn-primary btn" to="#!" onClick={this.props.onAddToCart.bind(this, item)}>Add to cart</Link> 
+                                </div>
                             </div>
-                            <div className="btn">
-                                <Link className="btn btn-primary btn" to="#!" onClick={this.props.onAddToCart.bind(this, item)}>Add to cart</Link> 
-                            </div>
+                        </div>&nbsp;
                         </div>
-                    </div>&nbsp;
+            });
+            return (
+                <div className="containerItem">
+                    <div className="card-deck">
+                    {products}
                     </div>
-        });
-        return (
-            <div className="containerItem">
-                <div className="card-deck">
-                {products}
                 </div>
-            </div>
-            
-        );
+                
+            );
+        } else  return <div style={{marginTop: '10%'}}>Not found database</div>
     }
 }
 
