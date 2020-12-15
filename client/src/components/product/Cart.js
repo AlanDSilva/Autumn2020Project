@@ -11,6 +11,7 @@ export default class Cart extends React.Component {
         };
         this.Purchase = this.Purchase.bind(this);
         this.Delete = this.Delete.bind(this);
+        this.Buttons = this.Buttons.bind(this);
         
     }
 
@@ -32,17 +33,27 @@ export default class Cart extends React.Component {
         "content-type": "multipart/form-data",
           },
              };
-    console.log("I'm trying");
+    console.log("I'm trying"); //are you though
     console.log(orderData);
 
     APIAddHistory(orderData, config) 
     .then( (results) => { 
       console.log(results);
-      console.log("hi there");
     })
     .catch(error => console.log(error))
   }
     
+  Buttons() {
+      return (
+      <div><br/><br/>
+      <div className="btn">
+      <button className="btn btn-info btn" onClick={/*e=> this.Purchase(e.target.name)*/this.Delete}>Purchase all</button>
+      </div>
+      <div className="btn">
+        <button className="btn btn-info btn" onClick={this.Delete}>Empty cart</button>
+        </div>
+        </div>)
+  }
 
 
     Delete() {
@@ -62,19 +73,19 @@ export default class Cart extends React.Component {
         console.log(cartlist);
 
         var prettycart = [];
-        
+        var buttons ="";
+
         if(this.props.qty>0) {
             prettycart = cartlist.map((item) => {
             return  (<li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>)
            });  
+           buttons = this.Buttons();
         }
            else {
                console.log("you thought");
               // prettycart = null;
            }
         
-       
-
         console.log(prettycart);
 
        
@@ -85,13 +96,9 @@ export default class Cart extends React.Component {
             <br/><br/><ul>
                 {prettycart}
             </ul>
+            {buttons}
             <br/><br/>
-            <div className="btn">
-                <button className="btn btn-info btn" name={cartlist} onClick={e=> this.Purchase(e.target.name)}>Purchase all</button>
-            </div>
-            <div className="btn">
-                <button className="btn btn-info btn" onClick={this.Delete}>Empty cart</button>
-            </div>
+            
         </div>
         );
         }
