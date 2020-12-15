@@ -21,7 +21,7 @@ export default class Products extends React.Component {
                                <Link className="btn btn-info btn" to={`detail/${item.id}`}>View</Link> 
                             </div>
                             <div className="btn">
-                                <Link className="btn btn-primary btn" to="#!">Add to cart</Link> 
+                                <Link className="btn btn-primary btn" to="#!" onClick={this.props.onAddToCart.bind(this, item)}>Add to cart</Link> 
                             </div>
                         </div>
                     </div>&nbsp;

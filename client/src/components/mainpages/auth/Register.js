@@ -45,10 +45,11 @@ export default function Register(props) {
   // noti
   toast.configure();
   function notify(value) {
-    if (value == 1) toast.success('Create success ^_^') 
+    if (value == 0) toast.warning("Must attach a photo file")
+    else if (value == 1) toast.success('Create success ^_^') 
     else if (value == 2) toast.error("Password must be more than 6 characters")
     else if (value == 3) toast.warning("Invalid username")
-    else toast.warning("Missing input or invalid file")
+    else toast.warning("Try a new username")
   }
   // register
   function register(event) {
@@ -67,7 +68,10 @@ export default function Register(props) {
     // check if email is valid
     if (username.length < 4 ) {
         notify(3);
-    }      
+    }
+    if (selectedFile === null) {
+      notify(0)
+    }   
     // then check that password is more than 6
     else if(password.length < 6 )  notify(2); //warning noti
     else {
@@ -78,6 +82,7 @@ export default function Register(props) {
             localStorage.setItem("tokenUser", res.data.token);
             localStorage.setItem("photo_url", res.data.photo_url); //store the username to the localstorage for futher use
             props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
+            props.loginSuccess();
             notify(1);
           })
           .catch(function (error) {

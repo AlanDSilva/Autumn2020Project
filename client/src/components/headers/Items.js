@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 import Cart from "../style/cart.svg";
 export default function Items(props) {
     const {logIn} = props
+    
+    let logged = 0;
+    if(localStorage.tokenUser == undefined) {
+      logged = 0;
+    }
+    else logged = localStorage.tokenUser.length;
+
     const addItem = <li>
-                        {logIn ? (
+                        {logIn || logged > 0 ? (
                                   <img
                                     style={{
                                       height: "50px",
@@ -51,7 +58,7 @@ export default function Items(props) {
                 <li>
                   <Link
                     to="/login"
-                    className={logIn ? "hidden" : 'nav-link js-scroll-trigger'}
+                    className={logIn || logged > 0 ? "hidden" : 'nav-link js-scroll-trigger'}
                   >
                     <b>Login</b>
                   </Link>
@@ -60,7 +67,7 @@ export default function Items(props) {
                 <li>
                   <Link
                     to="/"
-                    className={logIn ? "nav-link js-scroll-trigger" : 'hidden'}
+                    className={logIn || logged > 0 ? "nav-link js-scroll-trigger" : 'hidden'}
                     onClick={() => {
                       localStorage.clear();
                       props.logOut();
@@ -81,7 +88,7 @@ export default function Items(props) {
                 <li>
                   <Link
                     to="/AddProduct"
-                    className={logIn ? "nav-link js-scroll-trigger" : 'hidden'}
+                    className={logIn || logged > 0 ? "nav-link js-scroll-trigger" : 'hidden'}
                   >
                     <b>Add Item</b>
                   </Link>

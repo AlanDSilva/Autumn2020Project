@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import '../style/detailProduct.css'
+import APIGetItem from '../../api/APIGetItem'
 // import ProductItem from '../utils/productItem/ProductItem'
 
 export default class Detail extends React.Component {
@@ -10,19 +11,14 @@ export default class Detail extends React.Component {
           item : []
         };
     }
-    componentDidMount() {
+    async componentDidMount() {
         const id = this.props.match.params.id;
-        console.log(id)
-        if (id) {
-            this.props.items.forEach(item => {
-                if(item.id === id) this.setState({item})
-            })
-        }
+        APIGetItem(id)
+        .then(item => this.setState({item: item.data[0]}))
+        .catch(error => console.log(error))
     }
     render() {
         const {item} = this.state
-        const {products} = this.props
-        console.log(item)
         return (
             <div className="containerItem">
                 <div className="detail">
@@ -34,7 +30,7 @@ export default class Detail extends React.Component {
                         <span>$ {item.price}</span>
                         <p>{item.category}</p>
                         <p>{item.description}</p>
-                        <Link to="/cart" className="cart">Buy Now</Link>
+                        <Link to="/cart" className="cart" onClick={this.props.onAddToCart.bind(this, item)}>Buy Now</Link>
                     </div>
                 </div>
 
@@ -42,7 +38,7 @@ export default class Detail extends React.Component {
                 <h2>Related products</h2>
                 {/* <div className="products">
                     {
-                        products.map(product => {
+                        prod u cts.map(product => {
                             return product.category === item.category 
                                 ? <ProductItem key={product.id} product={product} /> : null
                         })

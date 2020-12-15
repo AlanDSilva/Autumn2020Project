@@ -8,18 +8,25 @@ class App extends Component {
     super(props);
     this.state = {
       logIn : false
+      ,cart : []
     }
   }
 
   onLogin = () => {this.setState({ logIn: true })}
   onlogOut = () => {this.setState({ logIn: false })}
+  onAddToCart = (item) => {
+    this.setState({ cart: [...this.state.cart, item] })
+    localStorage.setItem("cart",item);
+    console.log(localStorage)
+    console.log(item)
+  }
 
   render() {
     return (
       <Router>
           <div>
             <Header status={this.state.logIn} logOut = {this.onlogOut}/>
-            <MainPages status={this.state.logIn} onLogin = {this.onLogin}/>
+            <MainPages status={this.state.logIn} onLogin = {this.onLogin} onAddToCart = {this.onAddToCart}/>
           </div>
       </Router>
     );

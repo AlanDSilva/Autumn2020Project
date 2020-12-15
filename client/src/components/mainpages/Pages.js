@@ -19,8 +19,8 @@ class Pages extends Component {
       items: []
     };
   }
-  componentDidMount = () => {
-    APIGetItems()
+  async componentDidMount() {
+    await APIGetItems()
     .then( (result) => {this.setState({ items: result.data });})
     .catch( error => console.log(error))
   };
@@ -33,7 +33,7 @@ class Pages extends Component {
           <Route  path="/help"       exact render={(routeProps) => <Help {...routeProps} />}/>
           <Route  path="/cart"       exact render={(routeProps) => <Cart {...routeProps} />} />
           <Route  path="/location"   exact render={(routeProps) => <Location {...routeProps} />} />
-          <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} {...routeProps} /> } />
+          <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} onAddToCart={this.props.onAddToCart} {...routeProps} /> } />
           <Route  path="/login"      exact render={(routeProps) => (  <Login
                                                                   logIn={this.props.status}
                                                                   loginSuccess={this.props.onLogin}
@@ -41,10 +41,11 @@ class Pages extends Component {
                                                                   {...routeProps}/>)} />
           <Route  path="/register"   exact render={(routeProps) => ( <Register
                                                                   redirectPathOnSuccess="/"
+                                                                  loginSuccess={this.props.onLogin}
                                                                   logIn={this.props.status} 
                                                                   {...routeProps} /> )} />
           <Route  path="/addproduct"  exact render={(routeProps) => <AddProduct {...routeProps} />}  />
-          <Route  path="/detail/:id"  exact render={(routeProps) => ( <Detail items={this.state.items} {...routeProps} />  )} />
+          <Route  path="/detail/:id"  exact render={(routeProps) => ( <Detail items={this.state.items} onAddToCart={this.props.onAddToCart} {...routeProps} />  )} />
         </Switch>
       </>
     );
