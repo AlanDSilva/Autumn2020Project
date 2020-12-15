@@ -88,4 +88,4 @@ export default function AddProduct(props) {
       </form>
     </div>
   );
-}
+}   
