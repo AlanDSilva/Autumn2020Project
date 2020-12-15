@@ -1,8 +1,7 @@
 import React from 'react'
-import axios from "axios";
 import {Link} from "react-router-dom";
-import constants from "../../constants.json";
 import APIGetItems from '../../api/APIGetItems';
+import APIAddHistory from '../../api/APIAddHistory';
 
 export default class Cart extends React.Component {
    constructor(props) {
@@ -22,9 +21,28 @@ export default class Cart extends React.Component {
       };
 
 
-      Purchase () {
-            
-    }
+    Purchase (props) {
+        
+          // set up order data
+    let orderData = new FormData();
+    orderData.append("token", localStorage.getItem("tokenUser"));
+    orderData.append("items", this.props.cart);
+    const config = {
+        headers: {
+        "content-type": "multipart/form-data",
+          },
+             };
+    console.log("I'm trying");
+    console.log(orderData);
+
+    APIAddHistory(orderData, config) 
+    .then( (results) => { 
+      console.log(results);
+      console.log("hi there");
+    })
+    .catch(error => console.log(error))
+  }
+    
 
 
     Delete() {
@@ -41,18 +59,18 @@ export default class Cart extends React.Component {
                 return item;
             }
         });
-        console.log(cartlist)
+        console.log(cartlist);
 
         var prettycart = [];
         
         if(this.props.qty>0) {
             prettycart = cartlist.map((item) => {
-            return  <li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>
+            return  (<li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>)
            });  
         }
            else {
                console.log("you thought");
-               prettycart = null;
+              // prettycart = null;
            }
         
        
@@ -69,7 +87,7 @@ export default class Cart extends React.Component {
             </ul>
             <br/><br/>
             <div className="btn">
-                <button className="btn btn-info btn" onClick={this.Purchase}>Purchase all</button>
+                <button className="btn btn-info btn" name={cartlist} onClick={e=> this.Purchase(e.target.name)}>Purchase all</button>
             </div>
             <div className="btn">
                 <button className="btn btn-info btn" onClick={this.Delete}>Empty cart</button>
