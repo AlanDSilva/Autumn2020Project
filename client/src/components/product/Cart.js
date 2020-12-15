@@ -27,19 +27,21 @@ export default class Cart extends React.Component {
             if (this.props.cart.includes(item.id)) {
                 return item;
             }
-        })
+        });
         console.log(cartlist)
 
-        var prettycart = ((cartlist) => {
-             if(cartlist.length > 0) {
-             cartlist.map((item) => {
+        var prettycart = [];
+        
+        if(cartlist.length>0) {
+            prettycart = cartlist.map((item) => {
             return  <li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>
-           });  }
+           });  
+        }
            else {
                console.log("you thought");
                return null;
            }
-        });
+        
 
         console.log(prettycart);
 
