@@ -10,7 +10,7 @@ class App extends Component {
       logIn : false
       ,cart : []
     }
-  }
+
 
   onLogin = () => {this.setState({ logIn: true })}
   onlogOut = () => {this.setState({ logIn: false })}

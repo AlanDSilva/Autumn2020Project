@@ -7,9 +7,11 @@ import APIGetItem from '../../api/APIGetItem'
 export default class Detail extends React.Component {
     constructor(props) {
         super(props);
+        this.AddtoCart = this.AddtoCart.bind(this);
         this.state = {
           item : []
         };
+
     }
     async componentDidMount() {
         const id = this.props.match.params.id;
@@ -17,8 +19,23 @@ export default class Detail extends React.Component {
         .then(item => this.setState({item: item.data[0]}))
         .catch(error => console.log(error))
     }
+
+    AddtoCart(props) {
+        console.log("added to cart: " + props);
+        if (this.products.cart.includes(props)) {
+            console.log("already in cart");
+        }
+        else {
+        this.props.onQtyChange(this.props.cart.length + 1);
+        this.props.onItemChange(props);         
+        }         
+         }
+    
     render() {
         const {item} = this.state
+        const {products} = this.props
+        console.log(item);
+        console.log(this.props);
         return (
             <div className="containerItem">
                 <div className="detail">
@@ -30,7 +47,11 @@ export default class Detail extends React.Component {
                         <span>$ {item.price}</span>
                         <p>{item.category}</p>
                         <p>{item.description}</p>
+
+                        {//<button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
+                        }
                         <Link to="/cart" className="cart" onClick={this.props.onAddToCart.bind(this, item)}>Buy Now</Link>
+
                     </div>
                 </div>
 

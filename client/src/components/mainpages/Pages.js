@@ -12,15 +12,41 @@ import Detail from "../product/Detail";
 
 import APIGetItems from '../../api/APIGetItems'
 import AddProduct from '../cms/AddProduct'
+
+
 class Pages extends Component {
   constructor(props) {
     super(props);
+    this.handleQty = this.handleQty.bind(this);
+    this.handleItems = this.handleItems.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
     this.state = {
-      items: []
+      items: [],
+      cartQty: 0,
+      cartItems: []
     };
   }
-  async componentDidMount() {
-    await APIGetItems()
+
+  handleQty(q) {
+    this.setState({cartQty : q});
+  }
+
+  handleItems(id) {
+    this.setState(prevState => ({
+      cartItems: [...prevState.cartItems, id]      
+    }));
+
+  }
+
+  emptyCart() {
+    this.setState(prevState => ({
+      cartItems: []      
+    }));
+  }
+
+  componentDidMount = () => {
+    APIGetItems()
+
     .then( (result) => {this.setState({ items: result.data });})
     .catch( error => console.log(error))
   };
@@ -31,9 +57,23 @@ class Pages extends Component {
         <Switch>
           <Route  path="/services"   exact render={(routeProps) => <Services {...routeProps} />}/>
           <Route  path="/help"       exact render={(routeProps) => <Help {...routeProps} />}/>
-          <Route  path="/cart"       exact render={(routeProps) => <Cart {...routeProps} />} />
+          <Route  path="/cart"       exact render={(routeProps) => <Cart cart={this.state.cartItems}
+                                                                  qty={this.state.cartQty}
+                                                                  onQtyChange={this.handleQty}
+                                                                  onItemChange={this.handleItems}
+                                                                  emptyCart={this.emptyCart}
+                                                                  {...routeProps} />} />
           <Route  path="/location"   exact render={(routeProps) => <Location {...routeProps} />} />
-          <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} onAddToCart={this.props.onAddToCart} {...routeProps} /> } />
+
+          <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items}
+                                                                  cart={this.state.cartItems}
+                                                                  qty={this.state.cartQty}
+                                                                  onQtyChange={this.handleQty}
+                                                                  onItemChange={this.handleItems}
+                                                                  {...routeProps} /> } />
+
+//           <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} onAddToCart={this.props.onAddToCart} {...routeProps} /> } />
+
           <Route  path="/login"      exact render={(routeProps) => (  <Login
                                                                   logIn={this.props.status}
                                                                   loginSuccess={this.props.onLogin}
