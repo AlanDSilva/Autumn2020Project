@@ -9,14 +9,17 @@ export default function CartNavbar() {
           </div>
           <div className="col-7">
             <div className="row text-right">
-              <div className="col-4">
+              <div className="col-3">
                 <h6 className="mt-2">Category</h6>
               </div>
-              <div className="col-4">
+              <div className="col-3">
                 <h6 className="mt-2">Quantity</h6>
               </div>
-              <div className="col-4">
+              <div className="col-3">
                 <h6 className="mt-2">Price</h6>
+              </div>
+              <div className="col-3">
+                <h6 className="mt-2"></h6>
               </div>
             </div>
           </div>

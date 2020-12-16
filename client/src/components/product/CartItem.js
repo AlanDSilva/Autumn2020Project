@@ -1,8 +1,8 @@
 import React from 'react'
-
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { IconButton, Tooltip } from '@material-ui/core';
 export default function Cartitem(props) {
-    const {key,photo,name,desc,category,quantity,
-    addToCart,removeFromCart,totalPrice} = props
+    const {index, key,photo,name,desc,category,quantity,totalPrice, onRemoveItem} = props
   
     return (
         <>
@@ -10,11 +10,10 @@ export default function Cartitem(props) {
                 <div className="col-5">
                     <div className="row d-flex">
                     <div className="book">
-                        {" "}
                         <img
                         src={photo}
                         className="book-img"
-                        />{" "}
+                        />
                     </div>
                     <div className="my-auto flex-column d-flex pad-left">
                         <h6 className="mob-text">{name}</h6>
@@ -24,23 +23,25 @@ export default function Cartitem(props) {
                 </div>
                 <div className="my-auto col-7">
                     <div className="row text-right">
-                    <div className="col-4">
+                    <div className="col-3">
                         <p className="mob-text">{category}</p>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <div className="row d-flex justify-content-end px-3">
                         <p className="mb-0" id="cnt1">
                             {quantity}
                         </p>
-                        <div className="d-flex flex-column plus-minus">
-                            {" "}
-                            <span className="vsm-text plus" onClick={addToCart}>+</span>
-                            <span className="vsm-text minus" onClick={removeFromCart} >_</span>{" "}
-                        </div>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-3">
                         <h6 className="mob-text">${totalPrice}</h6>
+                    </div>
+                    <div className="col-3">
+                    <Tooltip title="Delete">
+                    <IconButton onClick={() => onRemoveItem(index)} aria-label="delete" style={{bottom: '35%'}}>
+                        <DeleteOutlineIcon/>
+                    </IconButton>
+                    </Tooltip>
                     </div>
                     </div>
                 </div>
