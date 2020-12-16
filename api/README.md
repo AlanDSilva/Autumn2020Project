@@ -1,11 +1,11 @@
-
 ### POST /api/users
+
 <pre>
 CREATES USER 
 config:  
 {  
     headers: {    
-        "content-type": "multipart/form-data",  
+        "content-type": "multipart/form-data", 
     }  
 }
 form data:
@@ -22,7 +22,9 @@ json response:
 }
 
 </pre>
+
 ### POST /api/login
+
 <pre>
 LOGS USER In
 request body:
@@ -38,7 +40,9 @@ json respnse:
 }
 
 </pre>
+
 ### POST /api/items
+
 <pre>
 ADD ITEM
 config:
@@ -70,7 +74,9 @@ json respnse:
 ]
 
 </pre>
+
 ### GET /api/items
+
 <pre>
 GETS LIST OF ALL ITEMS
 json respnse:
@@ -87,7 +93,9 @@ json respnse:
 ]
 
 </pre>
+
 ### GET /api/items/:id
+
 <pre>
 GETS ONE ITEM BY ITS ID
 request params: 
@@ -108,7 +116,9 @@ json respnse:
 ]
 
 </pre>
+
 ### DELETE /api/items/:id
+
 <pre>
 DELETES ONE ITEM BY ITS ID
 request params: 
@@ -121,4 +131,41 @@ json respnse:
 }
 </pre>
 
+### POST /api/history
 
+ADDS ONE PURCHASE
+
+<pre>
+request body:
+{
+    token: String,
+    items: [String], //An array of strings with format ["item1 : price1", "item2 : price2", ...]
+    date: String,
+    price: Float,
+}
+json response:
+{
+    "id": String,
+    "user_id": "String",
+    "items": ["String"],
+    "p_date": String,
+    "price": Float
+}
+</pre>
+
+### GET /api/history/
+
+GETS USER'S HISTORY
+request body: {
+token: String
+}
+
+json response: [
+{  
+ "id": String,
+"user_id": "String",
+"items": ["String"],
+"p_date": String,
+"price": Float
+}, ...
+]

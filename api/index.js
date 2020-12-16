@@ -26,11 +26,16 @@ Promise.all([
 		      FOREIGN KEY(user_id)
 		      REFERENCES user_table(id)
       )`),
-      db.query(`CREATE TABLE IF NOT EXISTS order_history(
-        id VARCHAR (255) NOT NULL PRIMARY KEY,
-        user_id VARCHAR(255) NOT NULL,
-        items VARCHAR[]
-      )`)
+  db.query(`CREATE TABLE IF NOT EXISTS history_table(
+        id VARCHAR(255) NOT NULL PRIMARY KEY,
+        user_id VARCHAR(255),
+        items text[],
+        p_date VARCHAR(255),
+        price FLOAT,
+        CONSTRAINT fk_user
+		      FOREIGN KEY(user_id)
+		      REFERENCES user_table(id)
+      )`),
 ])
   .then(() => {
     console.log("database initialized");
