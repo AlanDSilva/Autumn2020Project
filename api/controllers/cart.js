@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
 
   const order = {
     id,
-    user_id: decodedToken.id,
+    user_id: body.token,
     items: body.items,
   };
 

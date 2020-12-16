@@ -4,6 +4,8 @@ export default function Header(props) {
     return (
         <div>
             <Navbar logIn = {props.status} logOut = {props.logOut}/>
+            <br/>
+            <br/>
         </div>
     )
 }

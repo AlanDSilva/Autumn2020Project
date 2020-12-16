@@ -78,7 +78,7 @@ export default function Items(props) {
                 </li>
 
                 <div className="cart-icon">
-                  <span>0</span>
+                  <span> {localStorage.counter ? localStorage.counter : 0 }</span>
                   <Link to="/cart">
                     <img src={Cart} alt="" width="30" />
                   </Link>

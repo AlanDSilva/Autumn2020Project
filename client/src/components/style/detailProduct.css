@@ -1,10 +1,11 @@
 .detail{
-    width: 100%;
+    width: 75%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 50px;
     font-size: 150%;
+    margin-left: 10%
 }
 .detail img{
     max-width: 400px;

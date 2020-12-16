@@ -33,7 +33,7 @@ export default class Detail extends React.Component {
     
     render() {
         const {item} = this.state
-        const {products} = this.props
+        // const {products} = this.props
         console.log(item);
         console.log(this.props);
         return (

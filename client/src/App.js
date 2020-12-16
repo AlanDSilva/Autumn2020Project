@@ -8,17 +8,23 @@ class App extends Component {
     super(props);
     this.state = {
       logIn : false
-      ,cart : []
+      ,cart : [],
+      counter: 0
     }
+  }
 
 
   onLogin = () => {this.setState({ logIn: true })}
   onlogOut = () => {this.setState({ logIn: false })}
+
   onAddToCart = (item) => {
-    this.setState({ cart: [...this.state.cart, item] })
-    localStorage.setItem("cart",item);
-    console.log(localStorage)
-    console.log(item)
+    var newCart = this.state.cart;
+    newCart.push(item);
+    localStorage.setItem("cart",JSON.stringify(newCart));
+    // get counter
+    var counter = JSON.parse(localStorage.getItem('cart')).length
+    localStorage.setItem("counter",(counter)); //for global storage
+    this.setState({ cart: newCart, counter })
   }
 
   render() {
@@ -30,7 +36,7 @@ class App extends Component {
           </div>
       </Router>
     );
-  }_
+  }
 }
 
 export default App;

@@ -69,6 +69,7 @@ export default function Login(props) {
             localStorage.setItem("username", username);
             localStorage.setItem("tokenUser", res.data.token);
             localStorage.setItem("photo_url", res.data.photo_url); //store the email to the localstorage for futher use
+            // if(localStorage.cart == undefined) localStorage.setItem("cart", [0]);
             props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
             props.loginSuccess(); //set state to logged in 
         }

@@ -1,107 +1,101 @@
-import React from 'react'
-import {Link} from "react-router-dom";
-import APIGetItems from '../../api/APIGetItems';
-import APIAddHistory from '../../api/APIAddHistory';
-
-export default class Cart extends React.Component {
-   constructor(props) {
-       super(props);
-       this.state = {
-       items: []
-        };
-        this.Purchase = this.Purchase.bind(this);
-        this.Delete = this.Delete.bind(this);
-        this.Buttons = this.Buttons.bind(this);
-        
-    }
-
-    componentDidMount = () => {
-        APIGetItems()
-        .then( (result) => {this.setState({ items: result.data });})
-        .catch( error => console.log(error))
-      };
-
-
-    Purchase (props) {
-        
-          // set up order data
-    let orderData = new FormData();
-    orderData.append("token", localStorage.getItem("tokenUser"));
-    orderData.append("items", this.props.cart);
-    const config = {
-        headers: {
-        "content-type": "multipart/form-data",
-          },
-             };
-    console.log("I'm trying"); //are you though
-    console.log(orderData);
-
-    APIAddHistory(orderData, config) 
-    .then( (results) => { 
-      console.log(results);
-    })
-    .catch(error => console.log(error))
-  }
-    
-  Buttons() {
-      return (
-      <div><br/><br/>
-      <div className="btn">
-      <button className="btn btn-info btn" onClick={/*e=> this.Purchase(e.target.name)*/this.Delete}>Purchase all</button>
-      </div>
-      <div className="btn">
-        <button className="btn btn-info btn" onClick={this.Delete}>Empty cart</button>
-        </div>
-        </div>)
-  }
-
-
-    Delete() {
-        this.props.onQtyChange(0);
-        this.props.emptyCart();  
-    }
-    
-    render() {
-        console.log(this.props.qty)
-        console.log(this.props.cart)
-
-        var cartlist = this.state.items.map((item) => {
-            if (this.props.cart.includes(item.id)) {
-                return item;
-            }
-        });
-        console.log(cartlist);
-
-        var prettycart = [];
-        var buttons ="";
-
-        if(this.props.qty>0) {
-            prettycart = cartlist.map((item) => {
-            return  (<li><Link to={`detail/${item.id}`}>{item.name + ": " + item.price}</Link></li>)
-           });  
-           buttons = this.Buttons();
-        }
-           else {
-               console.log("you thought");
-              // prettycart = null;
-           }
-        
-        console.log(prettycart);
-
-       
-
+import React, {useState} from "react";
+import CartNavbar from "./CartNavbar";
+import CartPayment from "./CartPayment";
+import "./cart.css";
+export default function Cart() {
+    const [quantity, setQuantity] = useState(1)
+  
+    const cart = JSON.parse(localStorage.getItem("cart"));
+  
+    if (cart.length === null)
+    return (
+      <h2 style={{ textAlign: "center", fontSize: "5rem" }}>Cart Empty</h2>
+    );
     return (
         <div>
-            <br/><br/><br/>In your cart you have {this.props.qty} items.
-            <br/><br/><ul>
-                {prettycart}
-            </ul>
-            {buttons}
-            <br/><br/>
-            
+        <div className="container px-4 py-5 mx-auto">
+            <CartNavbar />
+            {cart.map((item, index) => {
+            return (
+                <div className="row d-flex justify-content-center border-top" key={index}>
+                <div className="col-5">
+                    <div className="row d-flex">
+                    <div className="book">
+                        {" "}
+                        <img
+                        src={item.photo_url}
+                        className="book-img"
+                        />{" "}
+                    </div>
+                    <div className="my-auto flex-column d-flex pad-left">
+                        <h6 className="mob-text">{item.name}</h6>
+                        <p className="mob-text">{item.description}</p>
+                    </div>
+                    </div>
+                </div>
+                <div className="my-auto col-7">
+                    <div className="row text-right">
+                    <div className="col-4">
+                        <p className="mob-text">{item.category}</p>
+                    </div>
+                    <div className="col-4">
+                        <div className="row d-flex justify-content-end px-3">
+                        <p className="mb-0" id="cnt1">
+                            {quantity}
+                        </p>
+                        <div className="d-flex flex-column plus-minus">
+                            {" "}
+                            <span className="vsm-text plus" onClick={() => setQuantity(quantity+1)}>+</span>
+                            <span className="vsm-text minus" onClick={() => {
+                                if(quantity > 0) setQuantity(quantity-1)
+                            }}>-</span>{" "}
+                        </div>
+                        </div>
+                    </div>
+                    <div className="col-4">
+                        <h6 className="mob-text">${item.price*quantity}</h6>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            );
+            })}
+            {/* here is payment */}
+            <div className="row justify-content-center">
+            <div className="col-lg-12">
+                <div className="card">
+                <div className="row">
+                    <CartPayment />
+                    <div className="col-lg-4 mt-2">
+                    <div className="row d-flex justify-content-between px-4">
+                        <p className="mb-1 text-left">Subtotal</p>
+                        <h6 className="mb-1 text-right">$23.49</h6>
+                    </div>
+                    <div className="row d-flex justify-content-between px-4">
+                        <p className="mb-1 text-left">Shipping</p>
+                        <h6 className="mb-1 text-right">$2.99</h6>
+                    </div>
+                    <div
+                        className="row d-flex justify-content-between px-4"
+                        id="tax"
+                    >
+                        <p className="mb-1 text-left">Total (tax included)</p>
+                        <h6 className="mb-1 text-right">$26.48</h6>
+                    </div>{" "}
+                    <button className="btn-block btn-blue">
+                        {" "}
+                        <span>
+                        {" "}
+                        <span id="checkout">Checkout</span>{" "}
+                        <span id="check-amt">$26.48</span>{" "}
+                        </span>{" "}
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
         </div>
-        );
-        }
+        </div>
+    );
 }
-
-
