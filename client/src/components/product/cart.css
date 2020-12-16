@@ -12,15 +12,18 @@ body {
 
 .plus {
     position: absolute;
-    top: -8px;
-    left: 10px;
-    cursor: pointer
+    top: -20px;
+    left: 8px;
+    font-size: 150%;
+    cursor: pointer;
+    background: inherit;
 }
 
 .minus {
     position: absolute;
-    top: 13px;
-    left: 13px;
+    font-size: 150%;
+    top: 6px;
+    left: 9px;
     cursor: pointer
 }
 

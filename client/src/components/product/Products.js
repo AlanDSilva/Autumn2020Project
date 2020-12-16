@@ -12,9 +12,9 @@ export default class Products extends React.Component {
                         <img className="card-img-top img" src={item.photo_url} alt="Card image cap" />
                         <div className="card-body">
                             <h5 className="card-title">{item.name}</h5>
+                            <p className="card-text">${item.price}</p>
                             <p className="card-text">Category :{item.category}</p>
-                            <p className="card-text">{item.description}</p>
-                            <p className="card-text"><small className="text-muted">Price: {item.price}</small></p>
+                            <p className="card-text"><small className="text-muted">{item.description}</small></p>
                             <div className="btn">
                                <Link className="btn btn-info btn" to={`detail/${item.id}`}>View</Link> 
                             </div>
