@@ -32,7 +32,7 @@ export default function AddProduct(props) {
     .catch(error => console.log(error))
   }
   return (
-    <div>
+    <div style={{marginLeft: '20%', width: '60%'}}>
       {" "}
       <br />
       <br />

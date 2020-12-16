@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 export default function Cart(props) {
     toast.configure();
     const items = JSON.parse(localStorage.getItem("cart"));
-    const totalPrice = items.reduce((accumulator, current) => accumulator + current.price, 0)
+    const totalPrice = (items !== null) ? items.reduce((accumulator, current) => accumulator + current.price, 0) : 0
     const [cart, setCart] = useState("")
 
     function onRemoveItem(id) {
@@ -56,7 +56,7 @@ export default function Cart(props) {
             props.history.push(props.redirectPathOnFail);
         }
     }
-    if (items.length === 0) {
+    if (items === null) {
         return (
             <h2 style={{ textAlign: "center", fontSize: "5rem", marginTop:'2rem' }}>Cart Empty</h2>
           );

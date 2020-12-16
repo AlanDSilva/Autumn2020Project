@@ -29,7 +29,7 @@ router.post("/", async (req, res) => {
   res.json(savedItem.rows);
 });
 
-router.get("/", async (req, res) => {
+router.post("/getHistory", async (req, res) => {
   const body = req.body;
   const id = await uuidv4();
 
@@ -42,9 +42,8 @@ router.get("/", async (req, res) => {
   res.json(history.rows);
 });
 
-// router.get("/", async (req, res) => {
-//   const history = await History.get();
-
+// router.post("/2", async (req, res) => {
+//   const history = await History.get(req.id);
 //   res.json(history.rows);
 // });
 

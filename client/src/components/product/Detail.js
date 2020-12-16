@@ -33,7 +33,6 @@ export default class Detail extends React.Component {
     
     render() {
         const {item} = this.state
-        // const {products} = this.props
         console.log(item);
         console.log(this.props);
         return (
@@ -51,20 +50,7 @@ export default class Detail extends React.Component {
                         {//<button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
                         }
                         <Link to="/cart" className="cart"  style={{textDecoration:'none'}} onClick={this.props.onAddToCart.bind(this, item)}>Buy Now</Link>
-
                     </div>
-                </div>
-
-                <div>
-                <h2>Related products</h2>
-                {/* <div className="products">
-                    {
-                        prod u cts.map(product => {
-                            return product.category === item.category 
-                                ? <ProductItem key={product.id} product={product} /> : null
-                        })
-                    }
-                </div> */}
                 </div>
             </div>
 

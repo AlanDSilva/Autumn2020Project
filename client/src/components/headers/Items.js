@@ -47,6 +47,16 @@ export default function Items(props) {
                     <b>Login</b>
                   </Link>
                 </li>
+
+                <li>
+                  <Link
+                    to="/history"
+                    className={logIn || logged > 0 ? "nav-link js-scroll-trigger" : 'hidden'}
+                  >
+                    <b>History</b>
+                  </Link>
+                </li>
+
                 {/* logout */}
                 <li>
                   <Link
@@ -61,14 +71,6 @@ export default function Items(props) {
                   </Link>
                 </li>
 
-                <li>
-                  <Link
-                    to="/history"
-                    className={logIn || logged > 0 ? "nav-link js-scroll-trigger" : 'hidden'}
-                  >
-                    <b>History</b>
-                  </Link>
-                </li>
                 <div className="cart-icon">
                   <span> {localStorage.counter ? localStorage.counter : 0 }</span>
                   <Link to="/cart">
