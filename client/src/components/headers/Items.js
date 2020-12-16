@@ -5,7 +5,7 @@ export default function Items(props) {
     const {logIn} = props
     
     let logged = 0;
-    if(localStorage.tokenUser == undefined) {
+    if(localStorage.tokenUser === undefined) {
       logged = 0;
     }
     else logged = localStorage.tokenUser.length;
@@ -14,8 +14,8 @@ export default function Items(props) {
                         {logIn || logged > 0 ? (
                                   <img
                                     style={{
-                                      height: "50px",
-                                      width: "50px",
+                                      height: "45px",
+                                      width: "45px",
                                       borderRadius: "50%",
                                       border: "4px solid brown",
                                     }}
@@ -28,15 +28,6 @@ export default function Items(props) {
 
     return (
             <>
-            <li className="nav-item">
-                  <Link
-                    to="/services"
-                    className="nav-link js-scroll-trigger nav-items"
-                  >
-                    <b className="navbar-items">Service</b>
-                  </Link>
-                </li>
-
                 <li className="nav-item">
                   <Link
                     to="/help"
@@ -46,14 +37,7 @@ export default function Items(props) {
                   </Link>
                 </li>
 
-                <li className="nav-item">
-                  <Link
-                    to="/location"
-                    className="nav-link js-scroll-trigger nav-items"
-                  >
-                    <b className="navbar-items">Location</b>
-                  </Link>
-                </li>
+                
                 {/* login */}
                 <li>
                   <Link

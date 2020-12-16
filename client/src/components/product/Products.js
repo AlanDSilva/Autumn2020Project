@@ -1,11 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
 import '../style/items.css'
 
 export default class Products extends React.Component {
 
     render() {
+        if (this.props.items === undefined) {
+            return <h1 style={{marginLeft:'30%', marginTop:'5%'}}>No items found</h1>
+        }
         var products = this.props.items.map((item) => {
             return  <div className="card-deck" key={item.id}>
                     <div className="card">

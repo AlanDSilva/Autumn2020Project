@@ -50,7 +50,7 @@ export default class Detail extends React.Component {
 
                         {//<button className="btn btn-info btn" name={item.id} onClick={e=> this.AddtoCart(e.target.name)}>Add to cart</button>
                         }
-                        <Link to="/cart" className="cart" onClick={this.props.onAddToCart.bind(this, item)}>Buy Now</Link>
+                        <Link to="/cart" className="cart"  style={{textDecoration:'none'}} onClick={this.props.onAddToCart.bind(this, item)}>Buy Now</Link>
 
                     </div>
                 </div>

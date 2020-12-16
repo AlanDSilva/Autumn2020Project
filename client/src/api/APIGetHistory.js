@@ -1,7 +1,7 @@
 import axios from "axios";
 import constants from "../constants.json";
-export default function APIAddHistory(data) {
-  return axios.post(constants.baseAddress + "/api/history", data)
+export default function APIGetHistory(token) {
+  return axios.get(constants.baseAddress + "/api/history", token.token)
   .then(result => result)
   .catch(error => error);
 }

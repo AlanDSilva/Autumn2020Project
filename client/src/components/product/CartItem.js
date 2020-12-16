@@ -2,7 +2,7 @@ import React from 'react'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import { IconButton, Tooltip } from '@material-ui/core';
 export default function Cartitem(props) {
-    const {index, key,photo,name,desc,category,quantity,totalPrice, onRemoveItem} = props
+    const {id, key,photo,name,desc,category,quantity,totalPrice, onRemoveItem} = props
   
     return (
         <>
@@ -38,7 +38,7 @@ export default function Cartitem(props) {
                     </div>
                     <div className="col-3">
                     <Tooltip title="Delete">
-                    <IconButton onClick={() => onRemoveItem(index)} aria-label="delete" style={{bottom: '35%'}}>
+                    <IconButton onClick={() => onRemoveItem(id)} aria-label="delete" style={{bottom: '35%'}}>
                         <DeleteOutlineIcon/>
                     </IconButton>
                     </Tooltip>

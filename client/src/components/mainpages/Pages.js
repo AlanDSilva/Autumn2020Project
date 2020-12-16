@@ -4,12 +4,10 @@ import React, { Component } from "react";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Products from "../product/Products";
-import Services from "./Services";
 import Help from "./Help";
-import Location from "./Location";
 import Cart from "../product/Cart";
 import Detail from "../product/Detail";
-
+import History from "../mainpages/History";
 import APIGetItems from '../../api/APIGetItems'
 import AddProduct from '../cms/AddProduct'
 class Pages extends Component {
@@ -29,10 +27,9 @@ class Pages extends Component {
     return (
       <>
         <Switch>
-          <Route  path="/services"   exact render={(routeProps) => <Services {...routeProps} />}/>
           <Route  path="/help"       exact render={(routeProps) => <Help {...routeProps} />}/>
-          <Route  path="/cart"       exact render={(routeProps) => <Cart {...routeProps} />} />
-          <Route  path="/location"   exact render={(routeProps) => <Location {...routeProps} />} />
+          <Route  path="/history"       exact render={(routeProps) => <History {...routeProps} />}/>
+          <Route  path="/cart"       exact render={(routeProps) => <Cart {...routeProps} redirectPathOnFail="/login" redirectPathOnSuccess="/history" setCounter={this.props.setCounter}/>} />
           <Route  path="/"           exact render={(routeProps) => <Products items={this.state.items} onAddToCart={this.props.onAddToCart} {...routeProps} /> } />
           <Route  path="/login"      exact render={(routeProps) => (  <Login
                                                                   logIn={this.props.status}
