@@ -70,6 +70,7 @@ export default function Login(props) {
             localStorage.setItem("tokenUser", res.data.token);
             localStorage.setItem("photo_url", res.data.photo_url); //store the email to the localstorage for futher use
             props.history.push(props.redirectPathOnSuccess); // direct to main page if login success
+            props.loginSuccess()
         }
       })
       .catch(error => {

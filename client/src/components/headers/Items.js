@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Cart from "../style/cart.svg";
 export default function Items(props) {
     const {logIn} = props
-    
+    console.log(logIn)
     let logged = 0;
     if(localStorage.tokenUser === undefined) {
       logged = 0;
