@@ -26,7 +26,7 @@ export default class History extends Component {
                 <tr>
                 <th scope="row">{index}</th>
                 <td>{h.p_date.slice(0, 25)}</td>
-                <td>{h.items.map(i => {  return <div>{i}</div>})}</td>
+                <td>{h.items.map((i, index) => {  return <div key={index}>{i}</div>})}</td>
                 <td>${h.price}</td>
                 </tr>
             </tbody>
